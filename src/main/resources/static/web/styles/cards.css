@@ -1,0 +1,120 @@
+.container-card{
+  width: 320px;
+  height: 190px;
+  text-align: center;
+  position: relative;
+  margin: 0.8em auto;
+}
+.card-front{
+  color: #fff;
+  padding: 1em;
+  border-radius: 8px;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  transition: transform 1.1s;
+  transform: rotateY(0);
+  z-index:100;
+  backface-visibility: hidden;
+  background-image: url("../img/cream-pixels.png");
+  justify-content: space-between;
+  flex-direction: column;
+  display: flex;
+}
+.card-front .number{
+  display: block;
+  width: 100%;
+  word-spacing: 4px;
+  font-size: 20px;
+  letter-spacing: 2px;
+  color: #fff;
+  text-align: center;
+  margin-top: 20px;
+}
+.card-front .label{
+  font-size: 8px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.7);
+  letter-spacing: 1px;
+}
+.card-front .card-holder{
+  text-transform: uppercase;
+}
+.card-front .imagen{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  color: var(--purple);
+  font-weight: 700;
+  font-size: 1.3em;
+  letter-spacing: 1.6px;
+  width: 40%;
+}
+.card-front .labels-date{
+  width: 60%;
+}
+
+.card-back{
+  position: absolute;
+  padding: 1em .1em;
+  border-radius: 8px;
+  height: 100%;
+  width: 100%;  
+  transition: transform 1.1s;
+  transform: rotateY(-180deg);
+  background-image: url("../img/cream-pixels.png");
+}
+.card-back .line{
+  margin-top: 5px;
+  height: 38px;
+  background-color: #303030;
+}
+.container-card:hover .card-front{
+  transform: rotateY(180deg);
+}
+.container-card:hover .card-back{
+  transform: rotateY(0);
+}
+.card-back .code {
+  color: #303030;
+  text-align: right;
+  margin: 0;
+  font-size: 14px;
+}
+
+.card-back .secret {
+  padding: 5px 12px;
+  background-color: #fff;
+  position:relative;
+  margin-top: .5em;
+}
+
+.gold .card-back,
+.gold .card-front{
+background-color: #D4AF37;
+
+}
+
+.titanium .card-back,
+.titanium .card-front{
+background-color: #808384;
+
+}
+
+
+.silver .card-back,
+.silver .card-front{
+background-color: #e3e4e5;
+
+}
+
+.silver .card-front .label{
+  color: var(--dark);
+}
+.silver .card-front .number,
+.silver .card-front{
+  color: black;
+}
+

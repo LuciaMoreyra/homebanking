@@ -1,0 +1,197 @@
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap');
+
+:root {
+    --dark: #212529;
+    --orange: #FF4500;
+    --purple: #330066;
+}
+
+#app {
+    display: grid;
+    grid-template-rows: auto auto 1fr;
+    height: 100vh;
+    padding: 0;
+    font-family: 'Tajawal', sans-serif;
+
+}
+
+[v-cloak] {
+    display: none;
+}
+
+
+header {
+    height: auto;
+    background-color: var(--purple);
+    color: whitesmoke;
+}
+
+header img {
+    height: 1.5rem;
+}
+.user-menu .btn{
+    margin-left: .3em;
+    border: none;
+}
+
+.boton-nav{
+    z-index: 200;
+}
+
+.toggle-button{
+cursor:pointer;
+border-radius: .5em;
+}
+.toggle-button i{
+    margin-right: .1em;
+    color: var(--orange);
+}
+.toggle-button span{
+    font-size: small;
+    vertical-align: text-top;
+}
+.toggle-button:active{
+    box-shadow: 0 0 0 0.25rem rgb(13 110 253 / 25%);
+}
+
+.content {
+    background-color: #e8e9eb;
+    overflow: auto;
+    height: 100%;
+}
+
+nav {
+    display:flex;
+    flex-direction: column;
+    background-color: #fff;
+    border-radius: .25em;
+    position: fixed;
+    transition: left 1s;
+    top: 0;
+    left: -100vw;
+    width: 100vw;
+    height: 100vh;
+    z-index:300;
+}
+
+.client-info-top{
+    width: 100%;
+    align-self: center;
+    text-align: center;
+    padding: 2em 1em;
+    background-color:var(--purple);
+    border-bottom: 1px solid #e8e9eb;
+    color: #fff;
+}
+nav .boton-cerrar{
+    position: absolute; 
+    top:1em; 
+    right:1em;
+    opacity: 0.9;
+}
+    
+nav p {
+    margin:0;
+}
+nav a{
+    width: 100%;
+    align-self: center;
+    text-decoration: none;
+    padding: 1em;
+    border-bottom: 1px solid #e8e9eb;
+    color: var(--dark);
+}
+nav a:hover{
+    background-color: var(--purple);
+    color: #fff;
+}
+nav.visible{
+    left: 0;
+    transition: left 1s;
+}
+main{
+    overflow: auto;
+    height: 100%;
+}
+
+.section {
+    background-color: #fff;
+    border-radius: .25em;
+    padding: .3em;
+    margin: .3em;
+}
+
+.section .header {
+    color: var(--orange);
+}
+
+.section a{
+      font-size: 1.5rem;
+      color: #330066;
+}
+.section a:hover{
+   color: var(--orange) ;
+}
+.loans .card-header{
+    background-color: var(--purple);
+    color:#fff;
+    }
+
+.card-body{
+text-align: center;
+padding: 1em 3em;
+}
+
+/* estilos de la tabla */
+.balance-cell {
+    color: var(--purple);
+    font-weight: bold;
+    color: var(--orange);
+}
+
+.accounts tbody tr:hover{
+    cursor:pointer;
+}
+
+/* bootstrap */
+.account .badge{
+    font-size: 1em;
+    font-weight: 500;
+}
+
+
+@media (min-width: 768px) {
+
+    .content {
+        display: grid;
+        grid-template-columns: 1fr 3fr;
+    }
+    
+    nav {
+        display: flex;
+        border-radius: .25em;
+        position: static;
+        width: auto;
+        height: auto;
+    }
+    
+    nav .boton-cerrar{
+        display:none;
+        }
+
+    .section{
+        width: 85%;
+        padding: 1em;
+        margin: 1em;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .toggle-button{
+        display: none;
+    }
+ 
+    .section .header {
+        height: 4.5em;
+    }   
+}
