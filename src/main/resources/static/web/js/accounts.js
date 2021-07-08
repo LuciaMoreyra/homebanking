@@ -33,24 +33,21 @@ const app = Vue.createApp({
       const actual = window.location.origin;
       window.location = actual + `/web/account.html?id=${id}`;
     },
-    separarNumeros(num) {
-      if (num.length == 16) {
-        return (
-          num.slice(0, 4) +
-          " " +
-          num.slice(4, 8) +
-          " " +
-          num.slice(8, 12) +
-          " " +
-          num.slice(12)
-        );
-      }
-    },
     logout() {
       axios.post("/api/logout").then((response) => console.log(response));
       window.location = window.location.origin + '/web/index.html';
     },
-  },
+    createAccount(){
+    axios
+           .post('/api/clients/current/accounts')
+           .then(response => location.reload())
+           .catch(error => console.log(error));
+      },
+      createCard(){
+        window.location = window.location.origin + '/web/create-cards.html';
+      },
+    },
+
   computed: {
     hasLoans() {
       return this.loans.length > 0;
@@ -61,5 +58,17 @@ const app = Vue.createApp({
     debitCards() {
       return this.cards.filter((card) => card.type == "DEBIT");
     },
+    accountsNumber(){
+    if (this.clientData.accounts != undefined){
+     return this.clientData.accounts.length
+    }
+    },
+    maxCards(){
+      if (this.creditCards.length == 3 && this.debitCards.length == 3 ){
+        return true
+      }
+      return false
+    },
+
   },
 }).mount("#app");

@@ -15,6 +15,7 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
     />
+
     <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" href="styles/accounts.css" />
     <link rel="stylesheet" href="styles/cards.css" />
@@ -47,7 +48,7 @@
             ><i class="bi bi-person-circle"></i
           ></a>
           <a
-            @click="logout"  
+            @click="logout"
             href="#"
             class="btn btn-outline-light"
             data-bs-toggle="tooltip"
@@ -91,15 +92,19 @@
 
           <a href="accounts.html"> <i class="bi bi-wallet2"></i> Cuentas </a>
           <a href="cards.html"><i class="bi bi-credit-card"></i> Tarjetas</a>
-          <!-- <a href="#"><i class="bi bi-cash-stack"></i> Préstamos</a> -->
+
         </nav>
 
         <main>
           <div class="section cards" v-cloak>
-            <div class="header">
+            <div class="header d-flex justify-content-between">
               <h5>Tarjetas de Crédito</h5>
+              
             </div>
-            <div class="d-lg-flex justify-content-evenly" v-if="creditCards != 0">
+            <div
+              class="d-lg-flex justify-content-evenly flex-wrap"
+              v-if="creditCards != 0"
+            >
               <div
                 class="container-card"
                 v-for="card in creditCards"
@@ -108,25 +113,24 @@
               >
                 <div class="card-front">
                   <div class="label">{{ card.color }}</div>
-                  <div class="number">{{ separarNumeros(card.number) }}</div>
+                  <div class="number">{{ card.number }}</div>
 
                   <div class="card-holder p-2">{{card.cardHolder}}</div>
                   <div class="d-flex">
-                  <div class="d-flex justify-content-evenly labels-date">
-                    <div>
-                      <div class="label">valid since</div>
-                      <div>{{ dateAndTime(card.fromDate) }}</div>
+                    <div class="d-flex justify-content-evenly labels-date">
+                      <div>
+                        <div class="label">valid since</div>
+                        <div>{{ dateAndTime(card.fromDate) }}</div>
+                      </div>
+                      <div>
+                        <div class="label">valid thru</div>
+                        <div>{{ dateAndTime(card.thruDate) }}</div>
+                      </div>
                     </div>
-                    <div>
-                      <div class="label">valid thru</div>
-                      <div>{{ dateAndTime(card.thruDate) }}</div>
+                    <div class="imagen">
+                      <span>MindHub</span>
                     </div>
-                    
                   </div>
-                  <div class="imagen">
-                    <span>MindHub</span>
-                  </div>
-                </div>
                 </div>
 
                 <div class="card-back">
@@ -144,7 +148,10 @@
             <div class="header">
               <h5>Tarjetas de Débito</h5>
             </div>
-            <div class="d-lg-flex justify-content-evenly" v-if="debitCards != 0">
+            <div
+              class="d-lg-flex justify-content-evenly flex-wrap"
+              v-if="debitCards != 0"
+            >
               <div
                 class="container-card"
                 v-for="card in debitCards"
@@ -153,7 +160,7 @@
               >
                 <div class="card-front">
                   <div class="label">{{ card.color }}</div>
-                  <div class="number">{{ separarNumeros(card.number) }}</div>
+                  <div class="number">{{ card.number }}</div>
 
                   <div class="card-holder p-2">{{card.cardHolder}}</div>
 
@@ -167,7 +174,6 @@
                         <div class="label">valid thru</div>
                         <div>{{ dateAndTime(card.thruDate) }}</div>
                       </div>
-                      
                     </div>
                     <div class="imagen">
                       <span>MindHub</span>
@@ -186,6 +192,13 @@
             <div v-else class="text-secondary">No hay tarjetas de Débito</div>
           </div>
         </main>
+        <div
+          @click="createCard"
+          v-show="!maxCards"
+          class="boton-crear"
+        >
+          <p>Crear Nueva Tarjeta <i class="bi bi-chevron-double-right"></i></p>
+        </div>
       </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>

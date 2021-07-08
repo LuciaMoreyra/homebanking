@@ -1,197 +1,240 @@
-@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap");
 
 :root {
-    --dark: #212529;
-    --orange: #FF4500;
-    --purple: #330066;
+  --dark: #212529;
+  --orange: #ff4500;
+  --purple: #330066;
 }
 
 #app {
-    display: grid;
-    grid-template-rows: auto auto 1fr;
-    height: 100vh;
-    padding: 0;
-    font-family: 'Tajawal', sans-serif;
-
+  display: grid;
+  grid-template-rows: auto auto 1fr;
+  height: 100vh;
+  padding: 0;
+  font-family: "Tajawal", sans-serif;
 }
 
 [v-cloak] {
-    display: none;
+  display: none;
 }
 
-
 header {
-    height: auto;
-    background-color: var(--purple);
-    color: whitesmoke;
+  height: auto;
+  background-color: var(--purple);
+  color: whitesmoke;
 }
 
 header img {
-    height: 1.5rem;
+  height: 1.5rem;
 }
-.user-menu .btn{
-    margin-left: .3em;
-    border: none;
-}
-
-.boton-nav{
-    z-index: 200;
+.user-menu .btn {
+  margin-left: 0.3em;
+  border: none;
 }
 
-.toggle-button{
-cursor:pointer;
-border-radius: .5em;
+.boton-nav {
+  z-index: 200;
 }
-.toggle-button i{
-    margin-right: .1em;
-    color: var(--orange);
+
+.toggle-button {
+  cursor: pointer;
+  border-radius: 0.5em;
 }
-.toggle-button span{
-    font-size: small;
-    vertical-align: text-top;
+.toggle-button i {
+  margin-right: 0.1em;
+  color: var(--orange);
 }
-.toggle-button:active{
-    box-shadow: 0 0 0 0.25rem rgb(13 110 253 / 25%);
+.toggle-button span {
+  font-size: small;
+  vertical-align: text-top;
+}
+.toggle-button:active {
+  box-shadow: 0 0 0 0.25rem rgb(13 110 253 / 25%);
 }
 
 .content {
-    background-color: #e8e9eb;
-    overflow: auto;
-    height: 100%;
+  background-color: #e8e9eb;
+  overflow: auto;
+  height: 100%;
+  display: grid;
+  grid-template-areas: "boton" "main";
+  grid-template-rows: max-content;
 }
 
 nav {
-    display:flex;
-    flex-direction: column;
-    background-color: #fff;
-    border-radius: .25em;
-    position: fixed;
-    transition: left 1s;
-    top: 0;
-    left: -100vw;
-    width: 100vw;
-    height: 100vh;
-    z-index:300;
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  border-radius: 0.25em;
+  position: fixed;
+  transition: left 1s;
+  top: 0;
+  left: -100vw;
+  width: 100vw;
+  height: 100vh;
+  z-index: 300;
 }
 
-.client-info-top{
-    width: 100%;
-    align-self: center;
-    text-align: center;
-    padding: 2em 1em;
-    background-color:var(--purple);
-    border-bottom: 1px solid #e8e9eb;
-    color: #fff;
+.client-info-top {
+  width: 100%;
+  align-self: center;
+  text-align: center;
+  padding: 2em 1em;
+  background-color: var(--purple);
+  border-bottom: 1px solid #e8e9eb;
+  color: #fff;
 }
-nav .boton-cerrar{
-    position: absolute; 
-    top:1em; 
-    right:1em;
-    opacity: 0.9;
+nav .boton-cerrar {
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  opacity: 0.9;
 }
-    
+
 nav p {
-    margin:0;
+  margin: 0;
 }
-nav a{
-    width: 100%;
-    align-self: center;
-    text-decoration: none;
-    padding: 1em;
-    border-bottom: 1px solid #e8e9eb;
-    color: var(--dark);
+nav a {
+  transition: color 0.5s, background-color 0.5s;
+  width: 100%;
+  align-self: center;
+  text-decoration: none;
+  padding: 1em;
+  border-bottom: 1px solid #e8e9eb;
+  color: var(--dark);
 }
-nav a:hover{
-    background-color: var(--purple);
-    color: #fff;
+nav a:hover {
+  background-color: var(--purple);
+  color: #fff;
 }
-nav.visible{
-    left: 0;
-    transition: left 1s;
+nav.visible {
+  left: 0;
+  transition: left 1s;
 }
-main{
-    overflow: auto;
-    height: 100%;
+main {
+  grid-area: main;
 }
 
 .section {
-    background-color: #fff;
-    border-radius: .25em;
-    padding: .3em;
-    margin: .3em;
+  background-color: #fff;
+  border-radius: 0.25em;
+  padding: 1em;
+  margin: 0.4em;
 }
 
 .section .header {
-    color: var(--orange);
+  color: var(--orange);
+}
+.section .btn {
+  background-color: var(--orange);
+  border: none;
+}
+.section .btn:hover,
+.section .btn:active,
+.section .btn:focus {
+  background-color: #dd3c01;
 }
 
-.section a{
-      font-size: 1.5rem;
-      color: #330066;
+.section a {
+  font-size: 1.5rem;
+  color: #330066;
 }
-.section a:hover{
-   color: var(--orange) ;
-}
-.loans .card-header{
-    background-color: var(--purple);
-    color:#fff;
-    }
 
-.card-body{
-text-align: center;
-padding: 1em 3em;
+.section a:hover {
+  color: var(--orange);
+}
+
+.loans .card-header {
+  background-color: var(--purple);
+  color: #fff;
+}
+
+.card-body {
+  text-align: center;
+  padding: 1em 3em;
+}
+
+.boton-crear {
+  grid-area: boton;
+  padding: 1em;
+  margin: 0.5em;
+  color: #fff;
+  border-radius: 0.25em;
+  background-color: #ff4500;
+}
+.boton-crear p {
+  text-align: center;
+  margin: 0;
 }
 
 /* estilos de la tabla */
 .balance-cell {
-    color: var(--purple);
-    font-weight: bold;
-    color: var(--orange);
+  color: var(--purple);
+  font-weight: bold;
+  color: var(--orange);
 }
 
-.accounts tbody tr:hover{
-    cursor:pointer;
+.accounts tbody tr:hover {
+  cursor: pointer;
 }
 
 /* bootstrap */
-.account .badge{
-    font-size: 1em;
-    font-weight: 500;
+.account .badge {
+  font-size: 1em;
+  font-weight: 500;
 }
 
-
 @media (min-width: 768px) {
+  .content {
+    grid-template-columns: 1fr 4fr 1fr;
+    grid-template-areas: none;
+    grid-template-rows: none;
+  }
 
-    .content {
-        display: grid;
-        grid-template-columns: 1fr 3fr;
-    }
-    
-    nav {
-        display: flex;
-        border-radius: .25em;
-        position: static;
-        width: auto;
-        height: auto;
-    }
-    
-    nav .boton-cerrar{
-        display:none;
-        }
+  nav {
+    display: flex;
+    border-radius: 0.25em;
+    position: static;
+    width: auto;
+    height: auto;
+  }
 
-    .section{
-        width: 85%;
-        padding: 1em;
-        margin: 1em;
-        margin-left: auto;
-        margin-right: auto;
-    }
+  nav .boton-cerrar {
+    display: none;
+  }
 
-    .toggle-button{
-        display: none;
-    }
- 
-    .section .header {
-        height: 4.5em;
-    }   
+  main {
+    grid-area: auto;
+  }
+  .section {
+    width: 85%;
+    padding: 1em;
+    margin: 1em;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .toggle-button {
+    display: none;
+  }
+
+  .section .header {
+    height: 4.5em;
+  }
+  .boton-crear {
+    grid-area: auto;
+    cursor: pointer;
+    transition: transform 0.5s;
+    height: max-content;
+    padding: 1em;
+    margin: 1em;
+    margin-left: 0;
+    color: #fff;
+    border-radius: 0.25em;
+    background-color: #ff4500;
+  }
+
+  .boton-crear:hover {
+    transform: scale(1.08);
+  }
 }

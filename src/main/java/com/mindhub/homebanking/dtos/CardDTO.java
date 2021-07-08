@@ -15,7 +15,7 @@ public class CardDTO{
     private CardColor color;
 
     private String number;
-    private String cvv;
+    private int cvv;
 
     private LocalDateTime fromDate;
     private LocalDateTime thruDate;
@@ -51,10 +51,10 @@ public class CardDTO{
     public void setColor(CardColor color) {
         this.color = color;
     }
-    public String getCvv() {
+    public int getCvv() {
         return cvv;
     }
-    public void setCvv(String cvv) {
+    public void setCvv(int cvv) {
         this.cvv = cvv;
     }
     public LocalDateTime getFromDate() {

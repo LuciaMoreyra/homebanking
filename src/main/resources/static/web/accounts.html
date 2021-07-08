@@ -1,111 +1,166 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Mis Cuentas</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="styles/accounts.css">
-    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
-</head>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
+    />
+    <link rel="stylesheet" href="styles/accounts.css" />
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
+  </head>
 
-<body>
+  <body>
     <div id="app" class="container-fluid">
-        <header class="d-flex justify-content-between align-items-center py-1 px-3">
-            <div class="d-flex align-items-center p-1"><img src="img/android-chrome-512x512.png" alt="logo">
-                <h1 class="h5 ms-2 mb-0">Mindhub</h1>
-            </div>
-            <div class="user-menu">
-                    <a href="#" class="btn btn-outline-light" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Contactanos"><i class="bi bi-whatsapp"></i></a>
-                    <a href="#" class="btn btn-outline-light" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Perfil"><i class="bi bi-person-circle"></i></a>
-                    <a @click="logout" href="#" class="btn btn-outline-light" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Salir"><i class="bi bi-box-arrow-right"></i></a>
-            </div>
-        </header>
-
-        <div class="boton-nav d-flex justify-content-between justify-content-md-center px-3 align-items-center">
-         
-            <span   class="p-1 toggle-button  m-1" @click="toggleNav">
-                <i class="bi bi-list"></i>
-                <span class="text-secondary">menu</span>
-            </span>
-           
-           <h5  v-cloak>{{ clientData.firstName }} {{clientData.lastName }}</h5>
+      <header
+        class="d-flex justify-content-between align-items-center py-1 px-3"
+      >
+        <div class="d-flex align-items-center p-1">
+          <img src="img/android-chrome-512x512.png" alt="logo" />
+          <h1 class="h5 ms-2 mb-0">Mindhub</h1>
         </div>
-
-        <div class="content" >
-            
-            <nav class="client-info" :class="{visible:navShow}" >
-                
-                <div class="client-info-top position-relative" v-cloak>
-                    <button type="button" class="btn-close boton-cerrar  btn-close-white" aria-label="Close"
-                        @click="toggleNav">                    
-                    </button>
-                
-                    <p>{{ clientData.firstName }} {{clientData.lastName }}</p>
-                    <small>{{clientData.email}}</small>
-                </div>
-
-                    
-                <a href="accounts.html">
-                    <i class="bi bi-wallet2"></i> Cuentas
-                </a>
-                <a href="cards.html"><i class="bi bi-credit-card"></i>  Tarjetas</a>
-                <!-- <a href="#"><i class="bi bi-cash-stack"></i> Préstamos</a> -->
-            </nav>
-
-            <main>
-                <div class="section accounts">
-                    <div class="header">
-                        <h5>Cuentas</h5>
-                    </div>
-                    <table class="table table-hover text-center">
-                        <thead>
-                            <tr>
-                                <th>Numero</th>
-                                <th>Creada el</th>
-                                <th>Balance</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr v-for="account in clientData.accounts" :key="account.name" @click="goToUrl(account.id)"  v-cloak>
-                                <td>{{ account.number }}</td>
-                                <td>{{ dateAndTime(account.creationDate) }}</td>
-                                <td> <span class="balance-cell">$ {{ account.balance }}</span></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <div class="section loans">
-                    <div class="header">
-                        <h5>Prestamos</h5>
-                    </div>
-                    <div class="d-sm-flex justify-content-around">
-                    
-                    <div v-if="hasLoans" v-for="loan in loans" class="card card mb-3" v-cloak>
-                            <div class="card-header">{{ loan.name }}</div>
-                            <div class="card-body">
-                                <h5 class="card-title">$ {{loan.amount}}</h5>
-                                <p class="card-text">{{ loan.payment }} payments</p>
-                            </div>
-                        </div>
-                        <div  v-else >No hay préstamos</div>
-                    </div>
-                </div>
-
-            </main>
+        <div class="user-menu">
+          <a
+            href="#"
+            class="btn btn-outline-light"
+            data-bs-toggle="tooltip"
+            data-bs-placement="bottom"
+            title="Contactanos"
+            ><i class="bi bi-whatsapp"></i
+          ></a>
+          <a
+            href="#"
+            class="btn btn-outline-light"
+            data-bs-toggle="tooltip"
+            data-bs-placement="bottom"
+            title="Perfil"
+            ><i class="bi bi-person-circle"></i
+          ></a>
+          <a
+            @click="logout"
+            href="#"
+            class="btn btn-outline-light"
+            data-bs-toggle="tooltip"
+            data-bs-placement="bottom"
+            title="Salir"
+            ><i class="bi bi-box-arrow-right"></i
+          ></a>
         </div>
+      </header>
+
+      <div
+        class="
+          boton-nav
+          d-flex
+          justify-content-between justify-content-md-center
+          px-3
+          align-items-center
+        "
+      >
+        <span class="p-1 toggle-button m-1" @click="toggleNav">
+          <i class="bi bi-list"></i>
+          <span class="text-secondary">menu</span>
+        </span>
+
+        <h5 v-cloak>{{ clientData.firstName }} {{clientData.lastName }}</h5>
+      </div>
+
+      <div class="content">
+        <nav class="client-info" :class="{visible:navShow}">
+          <div class="client-info-top position-relative" v-cloak>
+            <button
+              type="button"
+              class="btn-close boton-cerrar btn-close-white"
+              aria-label="Close"
+              @click="toggleNav"
+            ></button>
+
+            <p>{{ clientData.firstName }} {{clientData.lastName }}</p>
+            <small>{{clientData.email}}</small>
+          </div>
+
+          <a href="accounts.html"> <i class="bi bi-wallet2"></i> Cuentas </a>
+          <a href="cards.html"><i class="bi bi-credit-card"></i> Tarjetas</a>
+          <!-- <a href="#"><i class="bi bi-cash-stack"></i> Préstamos</a> -->
+        </nav>
+
+        <main>
+          <div class="section accounts">
+            <div class="header d-flex justify-content-between">
+              <h5>Cuentas</h5>
+              
+            </div>
+            <table class="table table-hover text-center">
+              <thead>
+                <tr>
+                  <th>Numero</th>
+                  <th>Creada el</th>
+                  <th>Balance</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  v-for="account in clientData.accounts"
+                  :key="account.number"
+                  @click="goToUrl(account.id)"
+                  v-cloak
+                >
+                  <td>{{ account.number }}</td>
+                  <td>{{ dateAndTime(account.creationDate) }}</td>
+                  <td>
+                    <span class="balance-cell">$ {{ account.balance }}</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="section loans">
+            <div class="header">
+              <h5>Prestamos</h5>
+            </div>
+            <div class="d-sm-flex justify-content-around">
+              <div
+                v-if="hasLoans"
+                v-for="loan in loans"
+                class="card card mb-3"
+                v-cloak
+              >
+                <div class="card-header">{{ loan.name }}</div>
+                <div class="card-body">
+                  <h5 class="card-title">$ {{loan.amount}}</h5>
+                  <p class="card-text">{{ loan.payment }} payments</p>
+                </div>
+              </div>
+              <div v-else>No hay préstamos</div>
+            </div>
+          </div>
+        </main>
+        <div
+          @click="createAccount"
+          v-show="accountsNumber < 3"
+          class="boton-crear"
+        >
+          <p>Crear Nueva Cuenta <i class="bi bi-chevron-double-right"></i></p>
+        </div>
+      </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://unpkg.com/vue@next"></script>
     <script src="./js/accounts.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous">
-    </script>
-</body>
-
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+      crossorigin="anonymous"
+    ></script>
+  </body>
 </html>

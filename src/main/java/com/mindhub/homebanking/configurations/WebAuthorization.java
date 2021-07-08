@@ -1,34 +1,43 @@
 package com.mindhub.homebanking.configurations;
 
+import java.util.Arrays;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.http.HttpMethod;
+import org.jetbrains.annotations.NotNull;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.WebAttributes;
 import org.springframework.security.web.authentication.logout.HttpStatusReturningLogoutSuccessHandler;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @EnableWebSecurity
 @Configuration
 class WebAuthorization extends WebSecurityConfigurerAdapter {
 
     @Override
-    protected void configure(HttpSecurity http) throws Exception {
+    protected void configure(@NotNull HttpSecurity http) throws Exception {
         http.authorizeRequests()
+                .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 .antMatchers("/web/index.html").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/clients").permitAll()
-                
-                .antMatchers("/web/accounts.html", "/web/account.html", "/web/cards.html", "/api/clients/current").hasAuthority("CLIENT")
-                .antMatchers("/rest/**", "/h2-console", "/web/manager.html", "/api/clients/**").hasAuthority("ADMIN");
+
+                .antMatchers("/web/accounts.html", "/web/account.html", "/web/cards.html","/web/create-cards.html", "/api/clients/current/**", "/api/transactions").hasAuthority("CLIENT")
+                .antMatchers("/rest/**", "/h2-console", "/web/manager.html", "/api/**").hasAuthority("ADMIN");
 
         http.formLogin().usernameParameter("email").passwordParameter("password").loginPage("/api/login");
 
         http.logout().logoutUrl("/api/logout");
 
+        // http.cors().and();
         // turn off checking for CSRF tokens
         http.csrf().disable();
 
@@ -44,13 +53,26 @@ class WebAuthorization extends WebSecurityConfigurerAdapter {
         http.formLogin().failureHandler((req, res, exc) -> res.sendError(HttpServletResponse.SC_UNAUTHORIZED));
         // if logout is successful, just send a success response
         http.logout().logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler());
+
     }
 
-    private void clearAuthenticationAttributes(HttpServletRequest request) {
+
+    private void clearAuthenticationAttributes(@NotNull HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session != null) {
             session.removeAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
         }
     }
+
+
+/*	@Bean
+	CorsConfigurationSource corsConfigurationSource() {
+		CorsConfiguration configuration = new CorsConfiguration();
+		configuration.setAllowedOrigins(Arrays.asList("*"));
+		configuration.setAllowedMethods(Arrays.asList("GET","POST"));
+		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		source.registerCorsConfiguration("/**", configuration);
+		return source;
+	}*/
 
 }

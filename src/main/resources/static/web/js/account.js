@@ -14,7 +14,7 @@ const app = Vue.createApp({
     methods: {
         fetchData(params) {
             
-            axios.get(`/api/accounts/${params.id}`)
+            axios.get('/api/clients/current/account', {params:params})
                 .then(response =>{ 
                     this.accountData = response.data;
                     this.transactions = [...this.accountData.transactions];

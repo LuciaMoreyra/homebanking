@@ -29,7 +29,7 @@ public class HomebankingApplication {
 	public CommandLineRunner initData(ClientRepository clientRepository, AccountRepository accountRepository, TransactionRepository transactionRepository, LoanRepository loanRepository, ClientLoanRepository clientLoanRepository, CardRepository cardRepository){
 		return (args) -> {
 
-			Client newClient1 = new Client("Melba", "Lorenzo","melba@mindhub.com", passwordEncoder.encode("melba1234"));
+			Client newClient1 = new Client("Melba", "Lorenzo","melba@mindhub.com", passwordEncoder.encode("melba"));
 			clientRepository.save(newClient1);
 
 			Account account1 = new Account("VIN001");
@@ -60,7 +60,7 @@ public class HomebankingApplication {
 			transactionRepository.save(transaccion2);
 
 
-		Client newClient2 = new Client("Maria", "Perez", "maria@mindhub.com", passwordEncoder.encode("maria1234"));
+		Client newClient2 = new Client("Maria", "Perez", "maria@mindhub.com", passwordEncoder.encode("maria"));
 		clientRepository.save(newClient2);
 		
 		account1 = new Account("AA0001");
@@ -122,10 +122,10 @@ public class HomebankingApplication {
 		 clientLoanRepository.save(prestamoAsignado2);
 
 		 //  cards
-		 Card card1 = new Card(CardType.DEBIT, CardColor.GOLD, "1111225637489388", "638", newClient1);
+		 Card card1 = new Card(CardType.DEBIT, CardColor.GOLD, newClient1);
 		 cardRepository.save(card1);
 
-		 Card card2 = new Card(CardType.CREDIT,CardColor.TITANIUM, "9384829384636263", "664", newClient1);
+		 Card card2 = new Card(CardType.CREDIT,CardColor.TITANIUM, newClient1);
 		 cardRepository.save(card2);
 
 		 
@@ -135,7 +135,7 @@ public class HomebankingApplication {
 		 ClientLoan prestamoAsignado4 = new ClientLoan(newClient2, newLoan, 200000,36);
 		 clientLoanRepository.save(prestamoAsignado4);
 
-		 Card card4 = new Card(CardType.CREDIT, CardColor.SILVER, "6633277182837364","447",newClient2);
+		 Card card4 = new Card(CardType.CREDIT, CardColor.SILVER,newClient2);
 		 cardRepository.save(card4);
 
 

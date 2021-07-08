@@ -5,6 +5,7 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.Random;
 
 @Entity
 @Table(name="card")
@@ -26,22 +27,35 @@ public class Card {
 
     private String number;
     private String cardholder;
-    private String cvv;
+    private int cvv;
 
     private LocalDateTime thruDate;
     private LocalDateTime fromDate;
 
     public Card(){}
 
-    public Card(CardType type, CardColor color, String number, String cvv, Client client){
+    public int getRandomNumber(int min, int max) {
+        Random random = new Random();
+        return random.ints(min, max)
+                .findFirst()
+                .getAsInt();
+    }
+
+
+    public Card(CardType type, CardColor color,  Client client){
         this.type = type;
-        this.cvv = cvv;
         this.color = color;
-        this.number = number;
         this.thruDate = LocalDateTime.now().plusYears(5);
         this.fromDate = LocalDateTime.now();
         this.client = client;
         this.cardholder = client.getFirstName() + " " + client.getLastName();
+        this.cvv =  getRandomNumber(100, 1000);
+        String str = "";
+        for (int i = 0; i < 4; i++) {
+            str += Integer.toString(getRandomNumber(1000, 10000));
+            str += "-";
+        }
+        this.number = str.substring(0, str.length()-1);
     }
 
 
@@ -93,11 +107,11 @@ public class Card {
         this.cardholder = cardholder;
     }
 
-    public String getCvv() {
+    public int getCvv() {
         return cvv;
     }
 
-    public void setCvv(String cvv) {
+    public void setCvv(int cvv) {
         this.cvv = cvv;
     }
 

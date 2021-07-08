@@ -1,0 +1,31 @@
+#app {
+  background-color: #fff;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+}
+.boton-volver {
+  position: absolute;
+  top: 2rem;
+  left: 2rem;
+}
+.boton-volver i {
+  font-size: 1.5rem;
+  color: #ff4500;
+}
+
+.boton-crear {
+  transition: transform 0.5s;
+  border-radius: 0.25em;
+  background-color: #ff4500;
+  border: 1px solid #fff;
+  padding: 1em 2em;
+  text-align: end;
+  color: #fff;
+}
+
+.boton-crear:hover {
+  transform: scale(1.08);
+}
