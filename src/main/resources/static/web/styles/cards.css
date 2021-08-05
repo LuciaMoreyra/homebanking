@@ -1,5 +1,5 @@
 .container-card {
-  width: 320px;
+  /* width: 320px; */
   height: 190px;
   text-align: center;
   position: relative;
@@ -112,4 +112,22 @@
 .silver .card-front .number,
 .silver .card-front {
   color: black;
+}
+
+.expired .card-front::after {
+  content: "vencida";
+  background-color: red;
+  position: absolute;
+  top: 2em;
+  right: 0px;
+  z-index: 120;
+  width: 100%;
+  text-transform: uppercase;
+  /* color: wheat; */
+}
+
+@media (min-width: 360px) {
+  .container-card {
+    width: 320px;
+  }
 }

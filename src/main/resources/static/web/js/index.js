@@ -30,7 +30,12 @@ const app = Vue.createApp({
         },
       })
       .then((response) => {
+      if (this.loginData.email === 'admin@admin'){
+      window.location = '/web/manager/manager.html';
+       }else{
         window.location = window.location.origin + '/web/accounts.html';
+       }
+
       })
       .catch(error => {
         if (error.response){

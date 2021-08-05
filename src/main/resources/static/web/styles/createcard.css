@@ -1,15 +1,8 @@
-#app {
-  background-color: #fff;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  position: relative;
-}
+
 .boton-volver {
-  position: absolute;
+  /* position: absolute;
   top: 2rem;
-  left: 2rem;
+  left: 2rem; */
 }
 .boton-volver i {
   font-size: 1.5rem;
@@ -17,15 +10,27 @@
 }
 
 .boton-crear {
-  transition: transform 0.5s;
+  transition: transform 0.2s;
   border-radius: 0.25em;
   background-color: #ff4500;
   border: 1px solid #fff;
-  padding: 1em 2em;
+  padding: .6em 2em;
   text-align: end;
   color: #fff;
+  /* margin: .5em; */
 }
 
 .boton-crear:hover {
   transform: scale(1.08);
+}
+
+
+.detalles{
+  text-align: center;
+  border: 1px solid var(--purple);
+  padding: 1em;
+  font-size: 1.1em;
+  color: var(--purple);
+  margin-top: 1em;
+  border-radius: .25rem;
 }

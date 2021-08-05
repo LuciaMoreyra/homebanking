@@ -56,9 +56,9 @@ header img {
   background-color: #e8e9eb;
   overflow: auto;
   height: 100%;
-  display: grid;
-  grid-template-areas: "boton" "main";
-  grid-template-rows: max-content;
+  /* display: grid; */
+  /* grid-template-areas: "boton" "main"; */
+  /* grid-template-rows: max-content; */
 }
 
 nav {
@@ -83,6 +83,7 @@ nav {
   background-color: var(--purple);
   border-bottom: 1px solid #e8e9eb;
   color: #fff;
+  /* height: .1em; */
 }
 nav .boton-cerrar {
   position: absolute;
@@ -99,7 +100,7 @@ nav a {
   width: 100%;
   align-self: center;
   text-decoration: none;
-  padding: 1em;
+  padding: 1em 1.6em;
   border-bottom: 1px solid #e8e9eb;
   color: var(--dark);
 }
@@ -110,9 +111,6 @@ nav a:hover {
 nav.visible {
   left: 0;
   transition: left 1s;
-}
-main {
-  grid-area: main;
 }
 
 .section {
@@ -125,14 +123,9 @@ main {
 .section .header {
   color: var(--orange);
 }
-.section .btn {
-  background-color: var(--orange);
-  border: none;
-}
-.section .btn:hover,
-.section .btn:active,
-.section .btn:focus {
-  background-color: #dd3c01;
+
+.transfer .btn {
+  border-radius: 0;
 }
 
 .section a {
@@ -155,16 +148,26 @@ main {
 }
 
 .boton-crear {
-  grid-area: boton;
-  padding: 1em;
+  /* grid-area: boton; */
+  padding: 0.5em;
   margin: 0.5em;
   color: #fff;
   border-radius: 0.25em;
+  border: none;
   background-color: #ff4500;
 }
+.boton-eliminar p,
 .boton-crear p {
   text-align: center;
   margin: 0;
+}
+.boton-eliminar {
+  padding: 0.5em;
+  margin: 0.5em;
+  color: #fff;
+  border-radius: 0.25em;
+  background-color: grey;
+  border: none;
 }
 
 /* estilos de la tabla */
@@ -186,9 +189,10 @@ main {
 
 @media (min-width: 768px) {
   .content {
-    grid-template-columns: 1fr 4fr 1fr;
-    grid-template-areas: none;
-    grid-template-rows: none;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    /* grid-template-areas: none; */
+    /* grid-template-rows: none; */
   }
 
   nav {
@@ -203,9 +207,6 @@ main {
     display: none;
   }
 
-  main {
-    grid-area: auto;
-  }
   .section {
     width: 85%;
     padding: 1em;
@@ -221,20 +222,24 @@ main {
   .section .header {
     height: 4.5em;
   }
-  .boton-crear {
-    grid-area: auto;
+  .boton-crear,
+  .boton-eliminar {
     cursor: pointer;
-    transition: transform 0.5s;
+    transition: transform 0.2s;
     height: max-content;
-    padding: 1em;
-    margin: 1em;
-    margin-left: 0;
-    color: #fff;
-    border-radius: 0.25em;
-    background-color: #ff4500;
+    padding: 0.6em 2em;
+
+    width: max-content;
   }
 
+  .boton-eliminar:hover,
   .boton-crear:hover {
-    transform: scale(1.08);
+    transform: scale(1.05);
+  }
+}
+
+@media (min-width: 1200px) {
+  .section {
+    width: 60%;
   }
 }

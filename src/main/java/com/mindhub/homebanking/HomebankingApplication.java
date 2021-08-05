@@ -32,47 +32,54 @@ public class HomebankingApplication {
 			Client newClient1 = new Client("Melba", "Lorenzo","melba@mindhub.com", passwordEncoder.encode("melba"));
 			clientRepository.save(newClient1);
 
-			Account account1 = new Account("VIN001");
+			Account account1 = new Account("VIN001", AccountType.SAVING);
 			newClient1.addAccount(account1);
 			
 
-			Transaction transaccion = new Transaction(TransactionType.CREDIT, 200, "Dinero recibido");
+			Transaction transaccion = new Transaction(TransactionType.CREDIT, 200, "Dinero recibido",(account1.getBalance()+200));
 			account1.addTransaction(transaccion);
-			Transaction transaccion2 = new Transaction(TransactionType.DEBIT, -30, "Pago de Servicios");
+			Transaction transaccion2 = new Transaction(TransactionType.DEBIT, -30, "Pago de Servicios",(account1.getBalance()-30));
+			transaccion2.setDate(LocalDateTime.now().minusDays(2));
 			account1.addTransaction(transaccion2);
+			
 
 			accountRepository.save(account1);
 			transactionRepository.save(transaccion);
 			transactionRepository.save(transaccion2);
 
 
-			Account account2 = new Account("VIN002");
+			Account account2 = new Account("VIN002", AccountType.CHECKING);
 			account2.setCreationDate(LocalDateTime.now().plusDays(1));
 			newClient1.addAccount(account2);
 			
 
-			transaccion = new Transaction(TransactionType.CREDIT, 100.34, "Venta");
+			transaccion = new Transaction(TransactionType.CREDIT, 100.34, "Venta", (account2.getBalance()+100.34));
+			transaccion.setDate(transaccion.getDate().minusDays(2));
+			Transaction transaccion33 = new Transaction(TransactionType.CREDIT, 80.34, "otra cosa", (account2.getBalance()+80.34));
+			transaccion33.setDate(transaccion.getDate().minusDays(3));
 			account2.addTransaction(transaccion);
-			transaccion2 = new Transaction(TransactionType.CREDIT, 50, "Sueldo");
+			account2.addTransaction(transaccion33);
+			transaccion2 = new Transaction(TransactionType.CREDIT, 50, "Sueldo",(account2.getBalance()+50));
 			account2.addTransaction(transaccion2);
 			accountRepository.save(account2);
 			transactionRepository.save(transaccion);
 			transactionRepository.save(transaccion2);
+			transactionRepository.save(transaccion33);
 
 
 		Client newClient2 = new Client("Maria", "Perez", "maria@mindhub.com", passwordEncoder.encode("maria"));
 		clientRepository.save(newClient2);
 		
-		account1 = new Account("AA0001");
+		account1 = new Account("AA0001", AccountType.SAVING);
 		newClient2.addAccount(account1);
 		
-			transaccion = new Transaction(TransactionType.CREDIT, 30.5, "operacion de crédito");
+			transaccion = new Transaction(TransactionType.CREDIT, 30.5, "operacion de crédito",(account1.getBalance()+30.5));
 			account1.addTransaction(transaccion);
 			
-			transaccion2 = new Transaction(TransactionType.CREDIT, 500, "operacion de crédito");
+			transaccion2 = new Transaction(TransactionType.CREDIT, 500, "operacion de crédito",(account1.getBalance()+500));
 			account1.addTransaction(transaccion2);
 			
-			Transaction transaccion4 = new Transaction(TransactionType.DEBIT, -10.5, "operacion de débito");
+			Transaction transaccion4 = new Transaction(TransactionType.DEBIT, -10.5, "operacion de débito",(account1.getBalance()-10.5));
 			account1.addTransaction(transaccion4);
 			
 		
@@ -82,7 +89,7 @@ public class HomebankingApplication {
 		transactionRepository.save(transaccion4);
 		
 
-		 account2 = new Account("AA0002");
+		 account2 = new Account("AA0002", AccountType.CHECKING);
 		 account2.setCreationDate(LocalDateTime.now().plusDays(1));
 			newClient2.addAccount(account2);
 		 accountRepository.save(account2);
@@ -95,14 +102,14 @@ public class HomebankingApplication {
 		 payments1.add(36);
 		 payments1.add(48);
 		 payments1.add(60);
-		 Loan newLoan1 = new Loan("Hipotecario",500000,payments1);
+		 Loan newLoan1 = new Loan("Hipotecario",500000,payments1, 20);
 		 loanRepository.save(newLoan1);
 
 		Set<Integer> payments2 = new HashSet<>();
 		 payments2.add(6);
 		 payments2.add(12);
 		 payments2.add(24);
-		 Loan newLoan2 = new Loan("Personal",100000,payments2);
+		 Loan newLoan2 = new Loan("Personal",100000,payments2,30);
 		 loanRepository.save(newLoan2);
 
 		 Set<Integer> payments = new HashSet<>();
@@ -110,7 +117,7 @@ public class HomebankingApplication {
 		 payments.add(12);
 		 payments.add(24);
 		 payments.add(36);
-		 Loan newLoan = new Loan("Automotriz",300000,payments);
+		 Loan newLoan = new Loan("Automotriz",300000,payments,40);
 		 loanRepository.save(newLoan);
 
 		//  client loans
@@ -122,10 +129,10 @@ public class HomebankingApplication {
 		 clientLoanRepository.save(prestamoAsignado2);
 
 		 //  cards
-		 Card card1 = new Card(CardType.DEBIT, CardColor.GOLD, newClient1);
+		 Card card1 = new Card(CardType.DEBIT, CardColor.GOLD, newClient1, "1234", 123);
 		 cardRepository.save(card1);
 
-		 Card card2 = new Card(CardType.CREDIT,CardColor.TITANIUM, newClient1);
+		 Card card2 = new Card(CardType.CREDIT,CardColor.TITANIUM, newClient1, "4321",123);
 		 cardRepository.save(card2);
 
 		 
@@ -135,7 +142,7 @@ public class HomebankingApplication {
 		 ClientLoan prestamoAsignado4 = new ClientLoan(newClient2, newLoan, 200000,36);
 		 clientLoanRepository.save(prestamoAsignado4);
 
-		 Card card4 = new Card(CardType.CREDIT, CardColor.SILVER,newClient2);
+		 Card card4 = new Card(CardType.CREDIT, CardColor.SILVER,newClient2, "9876987698769876", 345);
 		 cardRepository.save(card4);
 
 

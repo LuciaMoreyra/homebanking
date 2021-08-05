@@ -17,6 +17,7 @@ public class Loan {
 
     private String name;
     private double maxAmount;
+    private double percentage;
 
     @ElementCollection
     @Column(name="payments")
@@ -27,10 +28,11 @@ public class Loan {
     
 
     public Loan(){}
-    public Loan(String name, double maxAmount, Set<Integer> payments){
+    public Loan(String name, double maxAmount, Set<Integer> payments, double percentage){
         this.name = name;
         this.maxAmount = maxAmount;
         this.payments = payments;
+        this.percentage = percentage;
     }
 
     // @JsonIgnore
@@ -68,6 +70,11 @@ public class Loan {
     public Set<ClientLoan> getClientLoans(){
         return clientLoans;
     }
-    
+    public double getPercentage(){
+        return percentage;
+    }
+    public void setPercentage(double percentage){
+        this.percentage = percentage;
+    }
 
 }

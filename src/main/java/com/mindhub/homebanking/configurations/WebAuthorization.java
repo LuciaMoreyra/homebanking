@@ -26,18 +26,19 @@ class WebAuthorization extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(@NotNull HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                .antMatchers("/web/index.html").permitAll()
-                .antMatchers(HttpMethod.POST, "/api/clients").permitAll()
-
-                .antMatchers("/web/accounts.html", "/web/account.html", "/web/cards.html","/web/create-cards.html", "/api/clients/current/**", "/api/transactions").hasAuthority("CLIENT")
-                .antMatchers("/rest/**", "/h2-console", "/web/manager.html", "/api/**").hasAuthority("ADMIN");
+                .antMatchers("/web/index.html", "/web/styles/index.css", "/web/js/index.js", "/web/img/**").permitAll()
+                .antMatchers("/web/card-payment/**").permitAll()
+                // crear un nuevo cliente o realizar un pago con tarjeta
+                .antMatchers(HttpMethod.POST, "/api/clients",  "/api/payment").permitAll()
+                .antMatchers("/api/**").hasAnyAuthority("ADMIN", "CLIENT")
+                .antMatchers("/rest/**", "/h2-console", "/web/manager/**").hasAuthority("ADMIN")
+                .antMatchers("/web/**" ).hasAuthority("CLIENT");
 
         http.formLogin().usernameParameter("email").passwordParameter("password").loginPage("/api/login");
 
         http.logout().logoutUrl("/api/logout");
 
-        // http.cors().and();
+
         // turn off checking for CSRF tokens
         http.csrf().disable();
 
@@ -65,14 +66,5 @@ class WebAuthorization extends WebSecurityConfigurerAdapter {
     }
 
 
-/*	@Bean
-	CorsConfigurationSource corsConfigurationSource() {
-		CorsConfiguration configuration = new CorsConfiguration();
-		configuration.setAllowedOrigins(Arrays.asList("*"));
-		configuration.setAllowedMethods(Arrays.asList("GET","POST"));
-		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-		source.registerCorsConfiguration("/**", configuration);
-		return source;
-	}*/
 
 }

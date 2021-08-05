@@ -1,9 +1,11 @@
+
 package com.mindhub.homebanking.models;
 
 import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.HashSet;
+
 import java.util.Set;
 
 @Entity
@@ -16,6 +18,8 @@ public class Account {
     private String number;
     private LocalDateTime creationDate;
     private double balance;
+    private Boolean isActive; 
+    private AccountType accountType;
 
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -27,10 +31,26 @@ public class Account {
 
     public Account(){}
 
-    public Account(String number){
+    public Account(String number,AccountType type){
         this.number = number;
         this.creationDate = LocalDateTime.now();
         this.balance = 0;
+        this.isActive = true;
+        this.accountType = type;
+    }
+
+
+    public AccountType getAccountType(){
+        return accountType;
+    }
+    public void setAccountType(AccountType accountType){
+        this.accountType = accountType;
+    }
+    public Boolean getIsActive() {
+        return isActive;
+    }
+    public void setIsActive(Boolean isActive){
+        this.isActive = isActive;
     }
 
     public Long getId() {
@@ -78,13 +98,14 @@ public class Account {
         this.transactions = transactions;
     }
 
-    // public void updateBalance(double ammount){
-    //     this.balance = this.balance + ammount;
-    // }
+     public void updateBalance(double ammount){
+         this.balance = this.balance + ammount;
+     }
 
     public void addTransaction(Transaction transaction){
         transaction.setAccount(this);
-        this.setBalance(this.getBalance() + transaction.getAmount());
+        this.updateBalance(transaction.getAmount());
+        // this.setBalance(this.getBalance() + transaction.getAmount());
         transactions.add(transaction);
     }
 }

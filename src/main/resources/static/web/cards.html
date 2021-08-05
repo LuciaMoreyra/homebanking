@@ -78,7 +78,7 @@
 
       <div class="content">
         <nav class="client-info" :class="{visible:navShow}">
-          <div class="client-info-top position-relative" v-cloak>
+          <div class="client-info-top position-relative">
             <button
               type="button"
               class="btn-close boton-cerrar btn-close-white"
@@ -86,20 +86,20 @@
               @click="toggleNav"
             ></button>
 
-            <p>{{ clientData.firstName }} {{clientData.lastName }}</p>
-            <small>{{clientData.email}}</small>
+            <p>Bienvenida!</p>
           </div>
 
           <a href="accounts.html"> <i class="bi bi-wallet2"></i> Cuentas </a>
           <a href="cards.html"><i class="bi bi-credit-card"></i> Tarjetas</a>
-
+          <a href="transfers.html"
+            ><i class="bi bi-cash-stack"></i> Transferencias</a
+          >
         </nav>
 
         <main>
           <div class="section cards" v-cloak>
             <div class="header d-flex justify-content-between">
               <h5>Tarjetas de Crédito</h5>
-              
             </div>
             <div
               class="d-lg-flex justify-content-evenly flex-wrap"
@@ -108,7 +108,7 @@
               <div
                 class="container-card"
                 v-for="card in creditCards"
-                :class="card.color.toLowerCase()"
+                :class="card.color.toLowerCase() + (isExpired(card.thruDate)?' expired':'')"
                 :key="card.number"
               >
                 <div class="card-front">
@@ -155,7 +155,7 @@
               <div
                 class="container-card"
                 v-for="card in debitCards"
-                :class="card.color.toLowerCase()"
+                :class="card.color.toLowerCase() + (isExpired(card.thruDate)?' expired':'')"
                 :key="card.number"
               >
                 <div class="card-front">
@@ -191,14 +191,84 @@
             </div>
             <div v-else class="text-secondary">No hay tarjetas de Débito</div>
           </div>
+          <div class="buttons d-flex justify-content-center align-items-center">
+            <div @click="createCard" v-show="!maxCards" class="boton-crear">
+              <p>Crear Nueva Tarjeta</p>
+            </div>
+            <!-- Button trigger modal -->
+            <button
+              type="button"
+              data-bs-toggle="modal"
+              data-bs-target="#eliminarTarjeta"
+              v-show="cards"
+              class="boton-eliminar"
+            >
+              <p>Eliminar Tarjeta</p>
+            </button>
+          </div>
+
+          <!-- Modal -->
+          <div
+            class="modal fade"
+            id="eliminarTarjeta"
+            tabindex="-1"
+            aria-labelledby="exampleModalLabel"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title text-danger" id="exampleModalLabel">
+                    Eliminar una Tarjeta
+                  </h5>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <div class="modal-body">
+                  <div id="deleteCard" class="section">
+                    <form>
+                      <label for="cards" class="form-label"
+                        >Seleccione una tarjeta:
+                      </label>
+                      <select
+                        name="cards"
+                        id="cards"
+                        class="form-select"
+                        v-model="cardDeleteId"
+                      >
+                        <option value="0" selected></option>
+                        <option v-for="card in cards" :value="card.id">
+                          {{ card.number }} {{ card.color }}
+                        </option>
+                      </select>
+                    </form>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal"
+                  >
+                    Cancelar
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-danger"
+                    @click="deleteCard"
+                    data-bs-dismiss="modal"
+                  >
+                    Eliminar
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
         </main>
-        <div
-          @click="createCard"
-          v-show="!maxCards"
-          class="boton-crear"
-        >
-          <p>Crear Nueva Tarjeta <i class="bi bi-chevron-double-right"></i></p>
-        </div>
       </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>

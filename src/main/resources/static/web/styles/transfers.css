@@ -1,0 +1,14 @@
+
+.transfer .boton-crear {
+  transition: transform 0.2s;
+  border-radius: 0.25em;
+  background-color: #ff4500;
+  border: 1px solid #fff;
+  padding: .6em 2em;
+  text-align: end;
+  color: #fff;
+}
+
+.transfer .boton-crear:hover {
+  transform: scale(1.08);
+}

@@ -39,6 +39,12 @@ public class Client {
         this.password = password;
     }
 
+
+    public Set<Account> getActiveAccounts() {
+        return accounts.stream().filter(acc->acc.getIsActive()).collect(Collectors.toSet());
+    }
+
+
     @JsonIgnore
     public Set<Loan> getLoans(){
         return clientLoans.stream().map(ClientLoan::getLoan).collect(Collectors.toSet());
@@ -50,7 +56,8 @@ public class Client {
     public void setClientLoans(Set<ClientLoan> clientLoans){
         this.clientLoans = clientLoans;
     }
-    
+
+        
 
     public String getFirstName() {
         return firstName;

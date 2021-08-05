@@ -1,0 +1,21 @@
+.alert {
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+
+.visible {
+  opacity: 1;
+  transition: opacity 0.4s;
+}
+
+.btn {
+  height: 3em;
+}
+
+.formulario {
+  /* margin: 0 auto; */
+}
+main {
+  height: 90vh;
+  overflow: scroll;
+}

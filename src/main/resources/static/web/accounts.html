@@ -83,27 +83,30 @@
               aria-label="Close"
               @click="toggleNav"
             ></button>
-
-            <p>{{ clientData.firstName }} {{clientData.lastName }}</p>
-            <small>{{clientData.email}}</small>
+            <!-- <p>{{ clientData.firstName }} {{clientData.lastName }}</p>
+            <small>{{clientData.email}}</small> -->
+            <!-- <img src="img/android-chrome-512x512.png" style=" height: 1.5rem;" alt="logo" /> -->
+          <h2 class="h5 ms-2 mb-0">Mindhub</h2>
           </div>
 
           <a href="accounts.html"> <i class="bi bi-wallet2"></i> Cuentas </a>
           <a href="cards.html"><i class="bi bi-credit-card"></i> Tarjetas</a>
-          <!-- <a href="#"><i class="bi bi-cash-stack"></i> Préstamos</a> -->
+          <a href="transfers.html"
+            ><i class="bi bi-cash-stack"></i> Transferencias</a
+          >
         </nav>
 
         <main>
           <div class="section accounts">
             <div class="header d-flex justify-content-between">
               <h5>Cuentas</h5>
-              
             </div>
             <table class="table table-hover text-center">
               <thead>
                 <tr>
                   <th>Numero</th>
                   <th>Creada el</th>
+                  <th>Tipo</th>
                   <th>Balance</th>
                 </tr>
               </thead>
@@ -111,24 +114,50 @@
                 <tr
                   v-for="account in clientData.accounts"
                   :key="account.number"
-                  @click="goToUrl(account.id)"
+                  @click="goToUrl(account.number)"
                   v-cloak
                 >
                   <td>{{ account.number }}</td>
                   <td>{{ dateAndTime(account.creationDate) }}</td>
+                  <td>{{ traducir(account.accountType) }}</td>
                   <td>
-                    <span class="balance-cell">$ {{ account.balance }}</span>
+                    <span class="balance-cell"
+                      >$ {{ account.balance.toFixed(2) }}</span
+                    >
                   </td>
                 </tr>
               </tbody>
             </table>
+            <div
+              class="buttons d-flex justify-content-center align-items-center"
+            >
+              <button
+                
+                v-show="accountsNumber < 3"
+                class="boton-crear"
+                data-bs-toggle="modal"
+                data-bs-target="#createAccountModal"
+                type="button"
+              >
+                <p>Crear Nueva Cuenta</p>
+              </button>
+              <button
+                type="button"
+                data-bs-toggle="modal"
+                data-bs-target="#eliminarCuenta"
+                v-show="accountsNumber > 1"
+                class="boton-eliminar"
+              >
+                <p>Eliminar Cuenta</p>
+              </button>
+            </div>
           </div>
 
           <div class="section loans">
             <div class="header">
               <h5>Prestamos</h5>
             </div>
-            <div class="d-sm-flex justify-content-around">
+            <div class="d-sm-flex justify-content-around flex-wrap">
               <div
                 v-if="hasLoans"
                 v-for="loan in loans"
@@ -138,20 +167,196 @@
                 <div class="card-header">{{ loan.name }}</div>
                 <div class="card-body">
                   <h5 class="card-title">$ {{loan.amount}}</h5>
-                  <p class="card-text">{{ loan.payment }} payments</p>
+                  <p class="card-text">
+                    {{ loan.payment }} payments of $ {{
+                    (loan.amount/loan.payment).toFixed(2) }}
+                  </p>
                 </div>
               </div>
               <div v-else>No hay préstamos</div>
             </div>
+            <div
+              class="buttons d-flex justify-content-center align-items-center"
+            >
+              <div @click="nuevoPrestamo" class="boton-crear">
+                <p>Solicitar Préstamo</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Modal -->
+          <div
+            class="modal fade"
+            id="eliminarCuenta"
+            tabindex="-1"
+            aria-labelledby="exampleModalLabel"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title text-danger" id="exampleModalLabel">
+                    Eliminar una Cuenta
+                  </h5>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <div class="modal-body">
+                  <div id="deleteCard" class="section">
+                    <form>
+                      <label for="cards" class="form-label"
+                        >Seleccione la cuenta que desea eliminar:
+                      </label>
+                      <select
+                        name="cards"
+                        id="cards"
+                        class="form-select"
+                        v-model="accountToDelete"
+                      >
+                        <option value="" selected></option>
+                        <option
+                          v-for="account in clientData.accounts"
+                          :key="account.number + 'modal'"
+                          :value="account"
+                        >
+                          {{account.number}}
+                        </option>
+                      </select>
+
+                      <div v-show="accountToDelete.balance > 0">
+                        <p>esta cuenta tiene ${{ accountToDelete.balance }}</p>
+                        <label for="cards" class="form-label"
+                          >¿desea transferirlos a otra cuenta?
+                        </label>
+                        <select
+                          name="cards"
+                          id="cards"
+                          class="form-select"
+                          v-model="destinationAccount"
+                        >
+                          <option></option>
+                          <option
+                            v-for="account in clientData.accounts"
+                            :key="account.number + 'destino'"
+                            :value="account.number"
+                            v-show="account.number != accountToDelete.number"
+                          >
+                            {{account.number}}
+                          </option>
+                        </select>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal"
+                  >
+                    Cancelar
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-danger"
+                    @click="deleteAccount"
+                    data-bs-dismiss="modal"
+                    :disabled="!accountToDelete || accountToDelete.balance > 0"
+                    v-show="!accountToDelete.balance > 0"
+                  >
+                    Eliminar
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-danger"
+                    @click="transferAndDelete"
+                    data-bs-dismiss="modal"
+                    v-show="accountToDelete.balance > 0"
+                  >
+                    Transferir y Eliminar
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Modal -->
+          <div
+            class="modal fade"
+            id="createAccountModal"
+            tabindex="-1"
+            aria-labelledby="exampleModalLabel"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title text-success" id="exampleModalLabel">
+                    Crear una Cuenta
+                  </h5>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <div class="modal-body">
+                  <div id="deleteCard" class="section">
+                    <form>
+                      <p>Seleccione el tipo de cuenta:</p>
+                  <div class="d-md-flex"  role="group" aria-label="seleccionar tipo de cuenta">
+                      
+                      <input
+                      class="btn-check"
+                        type="radio"
+                        autocomplete="off"
+                        v-model="accountTypeCreate"
+                        name="accountType"
+                        id="ahorro"
+                        value="SAVING"
+                      />
+                      <label for="ahorro" class="btn btn-outline-dark m-2" >Cuenta de Ahorro</label>
+
+                      <input
+                      class="btn-check"
+                      autocomplete="off"
+                        type="radio"
+                        v-model="accountTypeCreate"
+                        name="accountType"
+                        id="corriente"
+                        value="CHECKING"
+                      />
+                      <label for="corriente" class="btn btn-outline-dark m-2" >Cuenta Corriente</label>
+                    </div>
+                    </form>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal"
+                  >
+                    Cancelar
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-success"
+                    @click="createAccount"
+                    data-bs-dismiss="modal"
+                    :disabled="!accountTypeCreate"
+                  >
+                    Crear
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
         </main>
-        <div
-          @click="createAccount"
-          v-show="accountsNumber < 3"
-          class="boton-crear"
-        >
-          <p>Crear Nueva Cuenta <i class="bi bi-chevron-double-right"></i></p>
-        </div>
       </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>

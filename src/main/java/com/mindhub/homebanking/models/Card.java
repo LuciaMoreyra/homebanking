@@ -5,7 +5,9 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 
 import java.time.LocalDateTime;
-import java.util.Random;
+// import java.util.Random;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name="card")
@@ -21,6 +23,8 @@ public class Card {
     @JoinColumn(name="client_id")
     private Client client;
 
+    @OneToMany(mappedBy = "card", fetch = FetchType.EAGER)
+    Set<Payment> payments = new HashSet<>();
 
     private CardType type;
     private CardColor color;
@@ -34,30 +38,16 @@ public class Card {
 
     public Card(){}
 
-    public int getRandomNumber(int min, int max) {
-        Random random = new Random();
-        return random.ints(min, max)
-                .findFirst()
-                .getAsInt();
-    }
-
-
-    public Card(CardType type, CardColor color,  Client client){
+    public Card(CardType type, CardColor color,  Client client, String number, int cvv){
         this.type = type;
         this.color = color;
         this.thruDate = LocalDateTime.now().plusYears(5);
         this.fromDate = LocalDateTime.now();
         this.client = client;
         this.cardholder = client.getFirstName() + " " + client.getLastName();
-        this.cvv =  getRandomNumber(100, 1000);
-        String str = "";
-        for (int i = 0; i < 4; i++) {
-            str += Integer.toString(getRandomNumber(1000, 10000));
-            str += "-";
-        }
-        this.number = str.substring(0, str.length()-1);
+        this.cvv = cvv;
+        this.number = number;
     }
-
 
     public Long getId() {
         return id;
@@ -129,5 +119,11 @@ public class Card {
 
     public void setFromDate(LocalDateTime fromDate) {
         this.fromDate = fromDate;
+    }
+    public Set<Payment> getPayments() {
+        return payments;
+    }
+    public void setPayments(Set<Payment> payments) {
+        this.payments = payments;
     }
 }
