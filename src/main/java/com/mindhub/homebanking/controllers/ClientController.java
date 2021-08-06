@@ -7,7 +7,7 @@ import com.mindhub.homebanking.models.Client;
 
 
 import com.mindhub.homebanking.services.ClientService;
-import org.jetbrains.annotations.NotNull;
+// import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -53,7 +53,7 @@ public class ClientController {
     @PostMapping(path = "/clients")
     public ResponseEntity<Object> register(
 
-            @NotNull @RequestParam String firstName, @RequestParam String lastName,
+            @RequestParam String firstName, @RequestParam String lastName,
 
             @RequestParam String email, @RequestParam String password) {
 

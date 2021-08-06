@@ -7,7 +7,6 @@ import com.mindhub.homebanking.repositories.ClientRepository;
 import com.mindhub.homebanking.services.CardService;
 import com.mindhub.homebanking.services.ClientService;
 
-import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,7 +32,7 @@ public class CardController {
     private CardService cardService;
 
     @PostMapping("/clients/current/cards")
-    public ResponseEntity<Object> register(@NotNull Authentication authentication, @RequestParam CardType type,
+    public ResponseEntity<Object> register( Authentication authentication, @RequestParam CardType type,
 
             @RequestParam CardColor color) {
 
@@ -53,7 +52,7 @@ public class CardController {
 
     @GetMapping("/clients/current/cards")
     @ResponseBody
-    public Set<CardDTO> getClientCards(@NotNull Authentication authentication) {
+    public Set<CardDTO> getClientCards(Authentication authentication) {
         Client client = clientRepository.findByEmail(authentication.getName());
         return client.getCards()
         .stream()
@@ -62,7 +61,7 @@ public class CardController {
     }
 
     @DeleteMapping("/clients/current/cards")
-    public ResponseEntity<Object> deleteCard(@NotNull Authentication authentication, @RequestParam Long cardId) {
+    public ResponseEntity<Object> deleteCard(Authentication authentication, @RequestParam Long cardId) {
         if (cardId <= 0 || cardId == null) {
             return new ResponseEntity<>("card does not exist", HttpStatus.NOT_FOUND);
         }

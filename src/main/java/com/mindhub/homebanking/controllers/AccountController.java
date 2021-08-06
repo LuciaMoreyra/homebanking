@@ -7,7 +7,7 @@ import com.mindhub.homebanking.dtos.AccountDTO;
 
 import com.mindhub.homebanking.services.AccountService;
 import com.mindhub.homebanking.services.ClientService;
-import org.jetbrains.annotations.NotNull;
+// import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.HttpStatus;
@@ -32,7 +32,7 @@ public class AccountController {
 
 
     @PostMapping("/clients/current/accounts")
-    public ResponseEntity<Object> createAccount(@NotNull Authentication authentication, @RequestParam AccountType type){
+    public ResponseEntity<Object> createAccount( Authentication authentication, @RequestParam AccountType type){
 
        Client client = clientService.getClientAuth(authentication);
         return accountService.createNewAccount(client, type) ? new ResponseEntity<>(HttpStatus.CREATED): new ResponseEntity<>("Client already has 3 accounts", HttpStatus.FORBIDDEN);
@@ -40,22 +40,13 @@ public class AccountController {
 
     @GetMapping("/clients/current/accounts")
     @ResponseBody
-    public Set<AccountDTO> getClientAccounts(@NotNull Authentication authentication){
+    public Set<AccountDTO> getClientAccounts(Authentication authentication){
         return accountService.getClientAccountsDTO(authentication);
     }
 
     @GetMapping("/clients/current/account")
     @ResponseBody
-    public AccountDTO getAccount(@NotNull Authentication authentication,  @RequestParam String number){
-    //         Account account = accountService.getAccount(number);
-    //         if (account == null || !account.getIsActive()) {
-    //             return null;
-    //         }
-    //         Boolean b = accountService.accountBelongsToAuthClient(authentication, account);
-    //         if (Boolean.TRUE.equals(b)) {
-    //             return  new AccountDTO(account);
-    //         } 
-    //         return null;
+    public AccountDTO getAccount(Authentication authentication,  @RequestParam String number){
         return accountService.getAccountDTO(authentication, number);
     }
     

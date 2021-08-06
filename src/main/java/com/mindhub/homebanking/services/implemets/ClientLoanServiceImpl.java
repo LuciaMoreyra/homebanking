@@ -102,7 +102,7 @@ public class ClientLoanServiceImpl implements ClientLoanService {
 
     @Override
     public ClientLoan getClientLoan(Long id){
-       return clientLoanRepository.getById(id);
+       return clientLoanRepository.getOne(id);
     }
 
 

@@ -5,16 +5,11 @@ import org.springframework.web.bind.annotation.*;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.jetbrains.annotations.NotNull;
 
-import java.util.Set;
+//import org.jetbrains.annotations.NotNull;
 
 import com.mindhub.homebanking.dtos.LoanApplicationDTO;
-import com.mindhub.homebanking.models.Account;
-import com.mindhub.homebanking.models.Client;
-import com.mindhub.homebanking.models.Loan;
 import com.mindhub.homebanking.services.AccountService;
 import com.mindhub.homebanking.services.ClientLoanService;
 import com.mindhub.homebanking.services.ClientService;
@@ -37,7 +32,7 @@ public class ClientLoanController {
     @Transactional
     @PostMapping("/client-loan")
     public ResponseEntity<Object> createLoan(Authentication authentication,
-            @NotNull @RequestBody LoanApplicationDTO loanApplicationDTO) {
+            @RequestBody LoanApplicationDTO loanApplicationDTO) {
 
         return clientLoanService.create(authentication, loanApplicationDTO);
     }

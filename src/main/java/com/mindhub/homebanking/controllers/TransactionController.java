@@ -17,7 +17,7 @@ import com.mindhub.homebanking.repositories.ClientRepository;
 import com.mindhub.homebanking.repositories.TransactionRepository;
 import com.mindhub.homebanking.services.AccountService;
 
-import org.jetbrains.annotations.NotNull;
+// import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -75,8 +75,8 @@ public class TransactionController {
     @Transactional
     @PostMapping(path = "/transactions")
     public ResponseEntity<Object> register(
-            @NotNull @RequestParam double amount, @RequestParam String description,
-            @NotNull @RequestParam String numberOrigin, @RequestParam String numberDestination, Authentication authentication
+             @RequestParam double amount, @RequestParam String description,
+             @RequestParam String numberOrigin, @RequestParam String numberDestination, Authentication authentication
     ){
         // Verificar que los parámetros no estén vacíos
         if (numberOrigin.isEmpty() || numberDestination.isEmpty() || amount <= 0) {
