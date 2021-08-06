@@ -1,16 +1,16 @@
 plugins {
-	id 'org.springframework.boot' version '2.5.0'
+	id 'org.springframework.boot' version '2.4.4'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
 }
 
-jar {
-  manifest {
-    attributes(
-      'Main-Class': 'com.mindhub.homebanking.HomebankingApplication'
-    )
-  }
-}
+// jar {
+//   manifest {
+//     attributes(
+//       'Main-Class': 'com.mindhub.homebanking.HomebankingApplication'
+//     )
+//   }
+// }
 
 group = 'com.mindhub'
 version = '0.0.1-SNAPSHOT'
