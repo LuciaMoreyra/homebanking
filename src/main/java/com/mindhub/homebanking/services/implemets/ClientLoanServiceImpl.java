@@ -29,7 +29,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class ClientLoanServiceImpl implements ClientLoanService {
 
-   
     @Autowired
     ClientService clientService;
     @Autowired

@@ -165,7 +165,7 @@
                 <div class="card-body">
                   <h5 class="card-title">$ {{loan.amount}}</h5>
                   <p class="card-text">
-                    {{ loan.payment }} payments of $ {{
+                    {{ loan.payment }} pagos de $ {{
                     (loan.amount/loan.payment).toFixed(2) }}
                   </p>
                 </div>
@@ -192,7 +192,7 @@
             <div class="modal-dialog">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title text-danger" id="exampleModalLabel">
+                  <h5 class="modal-title text-danger">
                     Eliminar una Cuenta
                   </h5>
                   <button
@@ -226,12 +226,12 @@
 
                       <div v-show="accountToDelete.balance > 0">
                         <p>esta cuenta tiene ${{ accountToDelete.balance }}</p>
-                        <label for="cards" class="form-label"
+                        <label for="destination-account" class="form-label"
                           >¿desea transferirlos a otra cuenta?
                         </label>
                         <select
                           name="cards"
-                          id="cards"
+                          id="destination-account"
                           class="form-select"
                           v-model="destinationAccount"
                         >
@@ -291,7 +291,7 @@
             <div class="modal-dialog">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title text-success" id="exampleModalLabel">
+                  <h5 class="modal-title text-success" >
                     Crear una Cuenta
                   </h5>
                   <button
@@ -302,7 +302,7 @@
                   ></button>
                 </div>
                 <div class="modal-body">
-                  <div id="deleteCard" class="section">
+                  <div  class="section">
                     <form>
                       <p>Seleccione el tipo de cuenta:</p>
                   <div class="d-md-flex"  role="group" aria-label="seleccionar tipo de cuenta">
