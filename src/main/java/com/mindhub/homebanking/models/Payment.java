@@ -2,6 +2,7 @@ package com.mindhub.homebanking.models;
 
 import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name="payment")
@@ -15,39 +16,40 @@ public class Payment {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "card_id")
     private Card card;
+// cuenta de la que se desconto el pago
+    private String accountNumber;
 
-    private String cardNumber;
-    private int cvv;
     private double amount;
     private String description;
+    private LocalDateTime date;
 
     public Payment() {
 
     }
 
-    public Payment(String cardNumber, int cvv, double amount, String description, Card card) {
+    public Payment( double amount, String description, Card card, LocalDateTime date, String accountNumber) {
         this.amount = amount;
-        this.cardNumber = cardNumber;
+    this.accountNumber = accountNumber;
         this.description = description;
-        this.cvv = cvv;
         this.card = card;
+        this.date = date;
         this.card.payments.add(this);
     }
 
-    public void setCardNumber(String cardNumber) {
-        this.cardNumber = cardNumber;
+    public String getAccountNumber() {
+        return accountNumber;
     }
 
-    public String getCardNumber() {
-        return cardNumber;
+    public void setAccountNumber(String accountNumber) {
+        this.accountNumber = accountNumber;
     }
 
-    public void setCcv(int cvv) {
-        this.cvv = cvv;
+    public LocalDateTime getDate() {
+        return date;
     }
 
-    public int getCvv() {
-        return cvv;
+    public void setDate(LocalDateTime date) {
+        this.date = date;
     }
 
     public void setAmount(double amount) {

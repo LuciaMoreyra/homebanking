@@ -45,17 +45,7 @@ public class LoanController {
 
     @PostMapping("/loans")
     public ResponseEntity<Object> createNewType(@RequestBody LoanDTO loanDTO) {
-        logger.info("holaaa");
-        if (loanDTO.getName().isEmpty() || loanDTO.getMaxAmount() <= 0 || loanDTO.getPayments().isEmpty()
-                || loanDTO.getPercentage() <= 0) {
-            return new ResponseEntity<>("missing data", HttpStatus.FORBIDDEN);
-        }
-        
-        if (loanService.loanExists(loanDTO.getName())){
-            return new ResponseEntity<>("this loan already exists", HttpStatus.FORBIDDEN);
-        }
 
-        return loanService.createLoan(loanDTO) ?  new ResponseEntity<>("created", HttpStatus.CREATED): new ResponseEntity<>(HttpStatus.FORBIDDEN);
-  
+     return loanService.createLoan(loanDTO);
     }
 }

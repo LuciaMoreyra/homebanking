@@ -10,6 +10,8 @@ import com.mindhub.homebanking.repositories.LoanRepository;
 import com.mindhub.homebanking.services.LoanService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -24,18 +26,27 @@ public class LoanServiceImpl implements LoanService{
     }
 
     @Override
-    public Boolean createLoan(LoanDTO loanDTO){
+    public ResponseEntity<Object> createLoan(LoanDTO loanDTO){
+        if (loanDTO.getName().isEmpty() || loanDTO.getMaxAmount() <= 0 || loanDTO.getPayments().isEmpty()
+                || loanDTO.getPercentage() <= 0) {
+            return new ResponseEntity<>("missing data", HttpStatus.FORBIDDEN);
+        }
+
+        if (loanRepository.existsLoanByName(loanDTO.getName())){
+            return new ResponseEntity<>("this loan already exists", HttpStatus.FORBIDDEN);
+        }
+
         try {
             Loan newLoan = new Loan(loanDTO.getName(), loanDTO.getMaxAmount(), loanDTO.getPayments(),
                     loanDTO.getPercentage());
             loanRepository.save(newLoan);
-            return true;
+            return new ResponseEntity<>("created", HttpStatus.CREATED);
         } catch (Exception e) {
             // en el caso de que haya un error
-           return false;
+           return new ResponseEntity<>(e, HttpStatus.FORBIDDEN);
         }
-
     }
+
     @Override
     public Set<LoanDTO> getLoans(){
         return loanRepository.findAll().stream().map(LoanDTO::new).collect(Collectors.toSet());

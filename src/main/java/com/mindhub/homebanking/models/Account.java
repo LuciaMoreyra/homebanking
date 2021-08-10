@@ -98,14 +98,24 @@ public class Account {
         this.transactions = transactions;
     }
 
-     public void updateBalance(double ammount){
-         this.balance = this.balance + ammount;
-     }
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Boolean getActive() {
+        return isActive;
+    }
+
+    public void setActive(Boolean active) {
+        isActive = active;
+    }
+    public void updateBalance(double amount){
+        this.balance = this.balance + amount;
+    }
 
     public void addTransaction(Transaction transaction){
         transaction.setAccount(this);
         this.updateBalance(transaction.getAmount());
-        // this.setBalance(this.getBalance() + transaction.getAmount());
         transactions.add(transaction);
     }
 }

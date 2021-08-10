@@ -13,7 +13,7 @@ public interface AccountRepository  extends JpaRepository<Account, Long>{
 
     Account findByNumber(String number);
     
-    Set<Account> findByClientId(Long clientId);
+    Set<Account> findByClientIdAndIsActiveTrue(Long clientId);
 
     Set<Account> findByClientIdAndBalanceGreaterThan(Long clientId, double balance);
 }

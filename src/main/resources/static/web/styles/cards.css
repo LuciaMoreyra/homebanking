@@ -116,7 +116,7 @@
 
 .expired .card-front::after {
   content: "vencida";
-  background-color: red;
+  background-color: #e40000;
   position: absolute;
   top: 2em;
   right: 0px;

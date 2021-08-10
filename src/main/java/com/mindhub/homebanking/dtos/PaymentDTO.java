@@ -1,22 +1,35 @@
 package com.mindhub.homebanking.dtos;
 
+import com.mindhub.homebanking.models.Card;
 import com.mindhub.homebanking.models.Payment;
 
+import java.time.LocalDateTime;
+
 public class PaymentDTO {
-    private String cardNumber;
-    private int cvv;
+  //  private String cardNumber;
     private double amount;
     private String description;
+    private LocalDateTime date;
+    private String accountNumber;
 
-    public PaymentDTO() {
+    public PaymentDTO(){
+
     }
 
-    public PaymentDTO(Payment payment) {
-        this.cardNumber = payment.getCardNumber();
-        this.cvv = payment.getCvv();
+    public PaymentDTO(Payment payment){
         this.amount = payment.getAmount();
+    //    this.cardNumber = payment.getCardNumber();
         this.description = payment.getDescription();
+        this.date = payment.getDate();
+        this.accountNumber = payment.getAccountNumber();
+    }
 
+    public String getAccountNumber() {
+        return accountNumber;
+    }
+
+    public void setAccountNumber(String accountNumber) {
+        this.accountNumber = accountNumber;
     }
 
     public double getAmount() {
@@ -27,28 +40,19 @@ public class PaymentDTO {
         this.amount = amount;
     }
 
-    public String getCardNumber() {
-        return cardNumber;
-    }
-
-    public void setCardNumber(String cardNumber) {
-        this.cardNumber = cardNumber;
-    }
-
-    public int getCvv() {
-        return cvv;
-    }
-
-    public void setCvv(int cvv) {
-        this.cvv = cvv;
+    public String getDescription() {
+        return description;
     }
 
     public void setDescription(String description) {
         this.description = description;
     }
 
-    public String getDescription() {
-        return description;
+    public LocalDateTime getDate() {
+        return date;
     }
 
+    public void setDate(LocalDateTime date) {
+        this.date = date;
+    }
 }

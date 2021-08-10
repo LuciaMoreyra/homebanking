@@ -30,20 +30,6 @@ public class ClientController {
     @Autowired
     ClientService clientService;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
-    /*
-    @RequestMapping("/clients")
-    public Set<ClientDTO> getClients() {
-        return clientService.getClientsDTO();
-    }
-
-     @RequestMapping("/clients/{id}")
-     public ClientDTO getClient(@PathVariable long id) {
-         return clientService.getClientDTO(id);
-     }*/
-
     @GetMapping("/clients/current")
     @ResponseBody
     public ClientDTO getClient(Authentication authentication){
@@ -51,23 +37,8 @@ public class ClientController {
     }
 
     @PostMapping(path = "/clients")
-    public ResponseEntity<Object> register(
-
-            @RequestParam String firstName, @RequestParam String lastName,
-
-            @RequestParam String email, @RequestParam String password) {
-
-        if (firstName.isEmpty() || lastName.isEmpty() || email.isEmpty() || password.isEmpty()) {
-            return new ResponseEntity<>("Missing data", HttpStatus.FORBIDDEN);
-        }
-
-        if (clientService.clientExists(email)) {
-            return new ResponseEntity<>("Email already in use", HttpStatus.FORBIDDEN);
-        }
-
-        Client client = new Client(firstName, lastName, email, passwordEncoder.encode(password));
-        clientService.saveClient(client);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+    public ResponseEntity<Object> register( @RequestParam String firstName, @RequestParam String lastName, @RequestParam String email, @RequestParam String password) {
+                return clientService.saveClient(firstName, lastName, email, password);
     }
 
 }

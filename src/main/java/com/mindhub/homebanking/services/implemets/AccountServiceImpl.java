@@ -8,7 +8,10 @@ import com.mindhub.homebanking.repositories.ClientRepository;
 import com.mindhub.homebanking.services.AccountService;
 import com.mindhub.homebanking.services.ClientService;
 
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import com.mindhub.homebanking.models.AccountType;
@@ -37,7 +40,6 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public Boolean accountBelongsToAuthClient(Authentication authentication, Account account) {
         Client client = clientService.getClientAuth(authentication);
-        // return (!(client.getAccounts().contains(account)));
         return (client == account.getClient());
     }
 
@@ -80,17 +82,37 @@ public class AccountServiceImpl implements AccountService {
     public Set<AccountDTO> getClientAccountsDTO(Authentication authentication) {
         Client client = clientRepository.findByEmail(authentication.getName());
         // return client.getActiveAccounts().stream().map(AccountDTO::new).collect(Collectors.toSet());
-        return accountRepository.findByClientId(client.getId()).stream().map(AccountDTO::new).collect(Collectors.toSet());
+        // hacer que devuelva las activas**********************************************
+        return accountRepository.findByClientIdAndIsActiveTrue(client.getId()).stream().map(AccountDTO::new).collect(Collectors.toSet());
     }
 
     @Override
-    public Boolean deactivateAccount(Account account) {
+    public ResponseEntity<Object> deactivateAccount(Authentication authentication, String number){
+        Account account = accountRepository.findByNumber(number);
+        if (account == null) {
+            return new ResponseEntity<>("account does not exist", HttpStatus.NOT_FOUND);
+        }
+
+        Client client = clientService.getClientAuth(authentication);
+        if (client != account.getClient()){
+            return new ResponseEntity<>("account does not belong to this client", HttpStatus.FORBIDDEN);
+        }
+
+        if (account.getBalance() > 0 ){
+            return new ResponseEntity<>("account must be empty when delete", HttpStatus.FORBIDDEN);
+        }
+
+        int accountsLength = client.getActiveAccounts().size();
+        if (accountsLength == 1){
+            return new ResponseEntity<>("client must have at least one account", HttpStatus.FORBIDDEN);
+        }
         try {
             account.setIsActive(false);
             accountRepository.save(account);
-            return true;
+            return new ResponseEntity<>("account deleted", HttpStatus.OK);
         } catch (Exception e) {
-            return false;
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
 }

@@ -130,12 +130,11 @@ public class HomebankingApplication {
 
 		 //  cards
 		 Card card1 = new Card(CardType.DEBIT, CardColor.GOLD, newClient1, "1234", 123);
+		 card1.setThruDate(LocalDateTime.now().minusDays(2));
 		 cardRepository.save(card1);
 
 		 Card card2 = new Card(CardType.CREDIT,CardColor.TITANIUM, newClient1, "4321",123);
 		 cardRepository.save(card2);
-
-		 
 
 		 ClientLoan prestamoAsignado3 = new ClientLoan(newClient2, newLoan2, 100000,24);
 		 clientLoanRepository.save(prestamoAsignado3);

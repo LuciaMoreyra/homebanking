@@ -56,9 +56,6 @@ header img {
   background-color: #e8e9eb;
   overflow: auto;
   height: 100%;
-  /* display: grid; */
-  /* grid-template-areas: "boton" "main"; */
-  /* grid-template-rows: max-content; */
 }
 
 nav {
@@ -148,7 +145,6 @@ nav.visible {
 }
 
 .boton-crear {
-  /* grid-area: boton; */
   padding: 0.5em;
   margin: 0.5em;
   color: #fff;

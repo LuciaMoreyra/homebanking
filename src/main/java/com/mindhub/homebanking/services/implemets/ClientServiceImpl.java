@@ -2,16 +2,17 @@ package com.mindhub.homebanking.services.implemets;
 
 import com.mindhub.homebanking.dtos.ClientDTO;
 import com.mindhub.homebanking.models.Client;
-import com.mindhub.homebanking.models.Account;
 import com.mindhub.homebanking.models.AccountType;
 import com.mindhub.homebanking.repositories.ClientRepository;
 import com.mindhub.homebanking.services.AccountService;
 import com.mindhub.homebanking.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -23,6 +24,8 @@ public class ClientServiceImpl implements ClientService {
 
     @Autowired
     AccountService accountService;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public Set<ClientDTO> getClientsDTO() {
@@ -46,26 +49,21 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public Boolean saveClient(Client client) {
-        try{
-            clientRepository.save(client);
-            accountService.createNewAccount(client, AccountType.SAVING);
-            return true;
+    public ResponseEntity<Object> saveClient(String firstName, String lastName, String email, String password) {
+
+        if (firstName.isEmpty() || lastName.isEmpty() || email.isEmpty() || password.isEmpty()) {
+            return new ResponseEntity<>("Missing data", HttpStatus.FORBIDDEN);
         }
-        catch (Exception e){
-            return false;
+
+        if (clientExists(email)) {
+            return new ResponseEntity<>("Email already in use", HttpStatus.FORBIDDEN);
         }
+
+        Client client = new Client(firstName, lastName, email, passwordEncoder.encode(password));
+        clientRepository.save(client);
+        accountService.createNewAccount(client, AccountType.SAVING);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
-    // si la account tiene suficiente dinero, devuelve la cuenta, si no devuelve null
-    // @Override
-    // public Account accountHasBalance(Client client, double amount){
-    //     for (Account account : client.getAccounts()) {
-    //         if (account.getBalance() >= amount){
-    //             return account;
-    //         }
-    //     } ;
-    //     return null;
-    // }
 
     }
 

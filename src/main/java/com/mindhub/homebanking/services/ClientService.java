@@ -3,6 +3,7 @@ package com.mindhub.homebanking.services;
 import com.mindhub.homebanking.dtos.ClientDTO;
 import com.mindhub.homebanking.models.Client;
 import com.mindhub.homebanking.models.Account;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 
 
@@ -18,7 +19,5 @@ public interface ClientService {
 
     Client getClientAuth(Authentication authentication);
 
-    Boolean saveClient(Client client);
- 
-    // Account accountHasBalance(Client client, double amount);
+    ResponseEntity<Object> saveClient(String firstName, String lastName, String email, String password);
 }

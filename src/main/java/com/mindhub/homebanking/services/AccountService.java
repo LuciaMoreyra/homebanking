@@ -4,6 +4,7 @@ import com.mindhub.homebanking.dtos.AccountDTO;
 import com.mindhub.homebanking.models.Account;
 import com.mindhub.homebanking.models.AccountType;
 import com.mindhub.homebanking.models.Client;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 
 import java.util.Set;
@@ -18,7 +19,7 @@ public interface AccountService {
 
     Account getAccount(String number);
 
-    Boolean deactivateAccount(Account account);
+    ResponseEntity<Object> deactivateAccount(Authentication authentication, String number);
 
     Boolean accountBelongsToAuthClient(Authentication authentication, Account account);
 }
