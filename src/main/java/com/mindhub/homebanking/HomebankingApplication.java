@@ -26,7 +26,7 @@ public class HomebankingApplication {
 	}
 
 	@Bean
-	public CommandLineRunner initData(ClientRepository clientRepository, AccountRepository accountRepository, TransactionRepository transactionRepository, LoanRepository loanRepository, ClientLoanRepository clientLoanRepository, CardRepository cardRepository){
+	public CommandLineRunner initData(ClientRepository clientRepository, AccountRepository accountRepository, TransactionRepository transactionRepository, LoanRepository loanRepository, ClientLoanRepository clientLoanRepository, CardRepository cardRepository, PaymentRepository paymentRepository){
 		return (args) -> {
 
 			Client newClient1 = new Client("Melba", "Lorenzo","melba@mindhub.com", passwordEncoder.encode("melba"));
@@ -129,11 +129,11 @@ public class HomebankingApplication {
 		 clientLoanRepository.save(prestamoAsignado2);
 
 		 //  cards
-		 Card card1 = new Card(CardType.DEBIT, CardColor.GOLD, newClient1, "1234", 123);
-		 card1.setThruDate(LocalDateTime.now().minusDays(2));
+		 Card card1 = new Card(CardType.DEBIT, CardColor.GOLD, newClient1, "0000000000001234", 123);
 		 cardRepository.save(card1);
 
-		 Card card2 = new Card(CardType.CREDIT,CardColor.TITANIUM, newClient1, "4321",123);
+		 Card card2 = new Card(CardType.CREDIT,CardColor.TITANIUM, newClient1, "9999999999999999",123);
+			card2.setThruDate(LocalDateTime.now().minusDays(2));
 		 cardRepository.save(card2);
 
 		 ClientLoan prestamoAsignado3 = new ClientLoan(newClient2, newLoan2, 100000,24);
@@ -148,7 +148,8 @@ public class HomebankingApplication {
 		Client nuevoCliente = new Client("admin","admin","admin@admin", passwordEncoder.encode("admin"));
 		clientRepository.save(nuevoCliente);
 
-
+		Payment payment = new Payment(100, "prueba", card1, LocalDateTime.now(), "VIN001");
+		paymentRepository.save(payment);
 		};
 
 

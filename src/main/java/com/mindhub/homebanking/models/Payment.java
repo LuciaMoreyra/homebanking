@@ -29,7 +29,7 @@ public class Payment {
 
     public Payment( double amount, String description, Card card, LocalDateTime date, String accountNumber) {
         this.amount = amount;
-    this.accountNumber = accountNumber;
+        this.accountNumber = accountNumber;
         this.description = description;
         this.card = card;
         this.date = date;

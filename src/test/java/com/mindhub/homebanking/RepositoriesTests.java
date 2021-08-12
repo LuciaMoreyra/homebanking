@@ -17,7 +17,7 @@ import java.util.List;
 public class RepositoriesTests {
 
 
-/*
+
     @Autowired
    LoanRepository loanRepository;
 
@@ -41,6 +41,6 @@ public class RepositoriesTests {
 
         assertThat(loans, hasItem(hasProperty("name", is("Personal"))));
 
-    }*/
+    }
 
 }
