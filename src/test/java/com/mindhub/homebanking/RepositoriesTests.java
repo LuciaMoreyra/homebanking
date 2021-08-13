@@ -21,24 +21,18 @@ public class RepositoriesTests {
     @Autowired
    LoanRepository loanRepository;
 
-
-
     @Test
     public void existLoans(){
 
         List<Loan> loans = loanRepository.findAll();
-
         assertThat(loans,is(not(empty())));
 
     }
-
-
 
     @Test
     public void existPersonalLoan(){
 
         List<Loan> loans = loanRepository.findAll();
-
         assertThat(loans, hasItem(hasProperty("name", is("Personal"))));
 
     }

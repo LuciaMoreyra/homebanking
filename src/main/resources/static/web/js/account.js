@@ -81,8 +81,6 @@ const app = Vue.createApp({
       var dd = {
         header: {
            text:'',
-          // "Transacciones de la cuenta " +
-          // this.accountNumber,
            margin: 30,
         },
         footer: {

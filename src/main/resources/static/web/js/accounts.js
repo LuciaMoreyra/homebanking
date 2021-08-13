@@ -22,7 +22,6 @@ const app = Vue.createApp({
           this.clientData = response.data;
           this.clientData.accounts.sort((a, b) => b.id - a.id);
           this.loans = this.clientData.loans;
-          // this.cards = this.clientData.cards;
           console.log(this.clientData.accounts);
         })
         .catch((error) => console.log(error));
@@ -54,24 +53,11 @@ const app = Vue.createApp({
     createCard() {
       window.location = window.location.origin + "/web/create-cards.html";
     },
-    // deleteCard() {
-    //   console.log("eliminar tarjeta");
-    //   axios
-    //     .delete("/api/clients/current/cards", {
-    //       params: { cardId: this.cardDeleteId },
-    //     })
-    //     .then((res) => {
-    //       console.log(res);
-    //       this.fetchData();
-    //     })
-    //     .catch((err) => console.log(err.response));
-    // },
+    
     nuevoPrestamo() {
       window.location = "/web/loan-application.html";
     },
-    // isExpired(dateStr) {
-    //   return new Date(dateStr) < new Date();
-    // },
+    
      deleteAccount() {
       console.log("eliminar cuenta " + this.accountToDelete.number);
       axios({
@@ -134,22 +120,12 @@ const app = Vue.createApp({
     hasLoans() {
       return this.loans.length > 0;
     },
-    // creditCards() {
-    //   return this.cards.filter((card) => card.type == "CREDIT");
-    // },
-    // debitCards() {
-    //   return this.cards.filter((card) => card.type == "DEBIT");
-    // },
+    
     accountsNumber() {
       if (this.clientData.accounts != undefined) {
         return this.clientData.accounts.length;
       }
     },
-    // maxCards() {
-    //   if (this.creditCards.length == 3 && this.debitCards.length == 3) {
-    //     return true;
-    //   }
-    //   return false;
-    // },
+  
   },
 }).mount("#app");

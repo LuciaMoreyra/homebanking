@@ -2,12 +2,12 @@
 const app = Vue.createApp({
     data() {
         return {
-            jsonData: {},
-            tableContent: [],
+            clientList: [],
             newClient: {
                 name: "",
                 lastName: "",
                 email: "",
+                password: "",
             },
             newLoan:{
                 name:'',
@@ -45,10 +45,12 @@ const app = Vue.createApp({
         loadData(page) {
             let params = { page : page, size: 10 };
             axios
-                .get('/rest/clients', {params: params})
+                // .get('/rest/clients', {params: params})
+                .get('/api/clients')
                 .then((response) => {
-                    this.jsonData = response.data;
-                    this.tableContent = [...this.jsonData._embedded.clients];
+                    this.clientList = response.data;
+                    console.log(this.clientList);
+                    // this.tableContent = [...this.jsonData._embedded.clients];
                 })
                 .catch(error => {
                     console.log(error);
@@ -63,6 +65,9 @@ const app = Vue.createApp({
                     this.newClient.email = "";
                     this.postClient(clientToAdd)
                 }
+
+
+                
             }
             else {
                 alert('this email is already registered')

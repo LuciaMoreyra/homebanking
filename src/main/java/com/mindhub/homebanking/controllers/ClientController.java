@@ -1,18 +1,16 @@
 package com.mindhub.homebanking.controllers;
 
+import java.util.Set;
 
 import com.mindhub.homebanking.dtos.ClientDTO;
 
-import com.mindhub.homebanking.models.Client;
-
 
 import com.mindhub.homebanking.services.ClientService;
-// import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.crypto.password.PasswordEncoder;
+
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -32,13 +30,18 @@ public class ClientController {
 
     @GetMapping("/clients/current")
     @ResponseBody
-    public ClientDTO getClient(Authentication authentication){
-        return  new ClientDTO(clientService.getClientAuth(authentication));
+    public ClientDTO getClient(Authentication authentication) {
+        return new ClientDTO(clientService.getClientAuth(authentication));
     }
 
     @PostMapping(path = "/clients")
-    public ResponseEntity<Object> register( @RequestParam String firstName, @RequestParam String lastName, @RequestParam String email, @RequestParam String password) {
-                return clientService.saveClient(firstName, lastName, email, password);
+    public ResponseEntity<Object> register(@RequestParam String firstName, @RequestParam String lastName,
+            @RequestParam String email, @RequestParam String password) {
+        return clientService.saveClient(firstName, lastName, email, password);
     }
 
+    @GetMapping("/clients")
+    public ResponseEntity<Object> getClients(Authentication authentication) {
+        return clientService.getClientsDTO(authentication);
+    }
 }

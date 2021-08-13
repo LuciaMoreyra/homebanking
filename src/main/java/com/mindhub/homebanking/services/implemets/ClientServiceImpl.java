@@ -8,6 +8,7 @@ import com.mindhub.homebanking.services.AccountService;
 import com.mindhub.homebanking.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -28,8 +29,16 @@ public class ClientServiceImpl implements ClientService {
     private PasswordEncoder passwordEncoder;
 
     @Override
-    public Set<ClientDTO> getClientsDTO() {
-         return clientRepository.findAll().stream().map(ClientDTO::new).collect(Collectors.toSet());
+    public ResponseEntity<Object> getClientsDTO(Authentication authentication) {
+        Set<String> authorities = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
+        if (authorities.contains("ADMIN")){
+           Set<ClientDTO> clientList = clientRepository.findAll().stream().map(ClientDTO::new).collect(Collectors.toSet());
+            return new ResponseEntity<>(clientList, HttpStatus.OK);
+        }
+        else{
+            return new ResponseEntity<>("admin role is required",HttpStatus.FORBIDDEN);
+        }
+
     }
 
     @Override

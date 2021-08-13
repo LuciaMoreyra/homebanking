@@ -164,7 +164,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="client in tableContent">
+              <tr v-for="client in clientList">
                 <td>{{ client.firstName }}</td>
                 <td>{{ client.lastName }}</td>
                 <td>{{ client.email }}</td>
@@ -178,7 +178,7 @@
         <div>
           <pre>
                             <code>
-                                {{ jsonData }}
+                                {{ clientList }}
                              </code>
                         </pre>
         </div>
