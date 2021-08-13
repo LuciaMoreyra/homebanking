@@ -5,7 +5,7 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 
 import java.time.LocalDateTime;
-// import java.util.Random;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -35,6 +35,7 @@ public class Card {
 
     private LocalDateTime thruDate;
     private LocalDateTime fromDate;
+    
 
     public Card(){}
 
@@ -126,4 +127,5 @@ public class Card {
     public void setPayments(Set<Payment> payments) {
         this.payments = payments;
     }
+    
 }

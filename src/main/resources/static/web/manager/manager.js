@@ -3,6 +3,8 @@ const app = Vue.createApp({
     data() {
         return {
             clientList: [],
+            jsonData: {},
+
             newClient: {
                 name: "",
                 lastName: "",
@@ -39,18 +41,16 @@ const app = Vue.createApp({
         }, 
         
         
-        
     },
     methods: {
         loadData(page) {
             let params = { page : page, size: 10 };
             axios
-                // .get('/rest/clients', {params: params})
-                .get('/api/clients')
+                 .get('/rest/clients', {params: params})
                 .then((response) => {
-                    this.clientList = response.data;
+                    this.jsonData = response.data;
+                    this.clientList = [...this.jsonData._embedded.clients];
                     console.log(this.clientList);
-                    // this.tableContent = [...this.jsonData._embedded.clients];
                 })
                 .catch(error => {
                     console.log(error);
@@ -63,6 +63,7 @@ const app = Vue.createApp({
                     this.newClient.name = "";
                     this.newClient.lastName = "";
                     this.newClient.email = "";
+                    this.newClient.password = "";
                     this.postClient(clientToAdd)
                 }
 
@@ -75,11 +76,19 @@ const app = Vue.createApp({
 
         },
         postClient(clientToAdd) {
-            axios.post('/rest/clients', {
-                firstName: clientToAdd.name.trim(),
-                lastName: clientToAdd.lastName.trim(),
-                email: clientToAdd.email.trim(),
-            })
+            axios({
+                method:'post',
+                url:'/api/clients',
+                params:{
+                    firstName: clientToAdd.name.trim(),
+                    lastName: clientToAdd.lastName.trim(),
+                    email: clientToAdd.email.trim(),
+                    password: clientToAdd.password.trim(),
+                },
+                headers:{
+                  'content-type':'application/x-www-form-urlencoded'
+                },
+              })
                 .then(response => {
                     this.showAlert(this.alertClass);
                     this.loadData();
@@ -125,7 +134,7 @@ const app = Vue.createApp({
             setTimeout(() => { classObj.visible = false; }, 1600);
         },
         isInClientList() {
-            for (const client of this.tableContent) {
+            for (const client of this.clientList) {
                 if (client.email == this.newClient.email) {
                     return true;
                 }

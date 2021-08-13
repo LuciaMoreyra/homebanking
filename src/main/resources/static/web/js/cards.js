@@ -38,7 +38,7 @@ const app = Vue.createApp({
               .catch((err) => console.log(err.response));
           },
           createCard() {
-            // window.location = window.location.origin + "/web/create-cards.html";
+           
             axios({
               method: "post",
               url: "/api/clients/current/cards",
@@ -56,13 +56,8 @@ const app = Vue.createApp({
               })
               .catch((error) => {
                 console.log(error);
-                // let myModal = new bootstrap.Modal(
-                //   document.getElementById("modalError"),
-                //   {
-                //     keyboard: false,
-                //   }
-                // );
-                // myModal.toggle();
+                
+                
               });
 
           },

@@ -148,8 +148,10 @@ public class HomebankingApplication {
 		Client nuevoCliente = new Client("admin","admin","admin@admin", passwordEncoder.encode("admin"));
 		clientRepository.save(nuevoCliente);
 
-		Payment payment = new Payment(100, "prueba", card1, LocalDateTime.now(), "VIN001");
-		paymentRepository.save(payment);
+		// Payment payment = new Payment(100, "prueba", card1, LocalDateTime.now(), "VIN001");
+		// paymentRepository.save(payment);
+
+		
 		};
 
 

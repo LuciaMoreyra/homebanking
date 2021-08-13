@@ -45,7 +45,7 @@
             
           >
             <h2 class="text-success">Client Manager</h2>
-            <form @submit.prevent="addClient" class="">
+            <form @submit.prevent="addClient" class="" autocomplete="off">
               <label for="name" class="form-label">Name:</label>
               <input
                 type="text"
@@ -67,6 +67,14 @@
                 type="email"
                 id="email"
                 v-model="newClient.email"
+                class="form-control"
+                required
+              />
+              <label for="password" class="form-label">Password:</label>
+              <input
+                type="password"
+                id="password"
+                v-model="newClient.password"
                 class="form-control"
                 required
               />
@@ -178,7 +186,7 @@
         <div>
           <pre>
                             <code>
-                                {{ clientList }}
+                                {{ jsonData }}
                              </code>
                         </pre>
         </div>

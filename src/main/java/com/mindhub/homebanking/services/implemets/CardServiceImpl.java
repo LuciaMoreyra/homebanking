@@ -14,7 +14,7 @@ import com.mindhub.homebanking.repositories.ClientRepository;
 import com.mindhub.homebanking.services.CardService;
 
 import com.mindhub.homebanking.services.ClientService;
-import org.apache.coyote.Response;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -58,6 +58,7 @@ public class CardServiceImpl implements CardService{
             return new ResponseEntity<>("card does not belong to auth client", HttpStatus.NOT_FOUND);
         }
         cardRepository.deleteById(id);
+        
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

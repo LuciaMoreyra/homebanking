@@ -68,13 +68,9 @@ public class PaymentServiceImpl implements PaymentService{
         
         transactionRepository.save(transaction);
         
-        Payment payment = new Payment(dto.getAmount(),dto.getDescription(),card, transaction.getDate(), account.getNumber());
-        paymentRepository.save(payment);
-        logger.info("--------------- ---------- -----------------");
-         for (Payment p : card.getPayments()) {
-             logger.info(p.getId().toString() + " ------ " + p.getDescription() + "--------"  + p.getAmount());
-         }
-        logger.info("--------------- ---------- -----------------");
+    //    Payment payment = new Payment(dto.getAmount(),dto.getDescription(),card, transaction.getDate(), account.getNumber());
+    //    paymentRepository.save(payment);
+      
         return new ResponseEntity<>("payment completed",HttpStatus.CREATED);   
     }
 
