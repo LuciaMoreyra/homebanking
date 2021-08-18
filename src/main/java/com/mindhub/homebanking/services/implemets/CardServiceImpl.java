@@ -15,6 +15,7 @@ import com.mindhub.homebanking.services.CardService;
 
 import com.mindhub.homebanking.services.ClientService;
 
+import com.mindhub.homebanking.utils.CardUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,12 +31,7 @@ public class CardServiceImpl implements CardService{
     @Autowired
     ClientRepository clientRepository;
 
-    public int getRandomNumber(int min, int max) {
-        Random random = new Random();
-        return random.ints(min, max)
-                .findFirst()
-                .getAsInt();
-    }
+
 
 
     @Override
@@ -70,14 +66,12 @@ public class CardServiceImpl implements CardService{
 
     @Override
     public Boolean createCard(CardType type, CardColor color,  Client client){
-       String number = "";
-        for (int i = 0; i < 4; i++) {
-            number += Integer.toString(getRandomNumber(1000, 10000));
-        }
-        int cvv = getRandomNumber(100, 1000);
+        String number = CardUtils.geCardNumber();
+        int cvv = CardUtils.getCvv();
         Card card = new Card(type, color, client, number, cvv);
         return cardRepository.save(card)!= null ;
     }
+
 
     @Override
     public ResponseEntity<Object> register(Authentication authentication, CardColor color, CardType type){
