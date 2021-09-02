@@ -34,3 +34,7 @@
   margin-top: 1em;
   border-radius: .25rem;
 }
+
+.modal-title{
+  color : var(--orange);
+}

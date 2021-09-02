@@ -10,8 +10,8 @@
   cursor: pointer;
 }
 
-  /* bootstrap acount page */
-  .account .badge {
-    font-size: 1em;
-    font-weight: 400;
-  }
+/* bootstrap acount page */
+.account .badge {
+  font-size: 1em;
+  font-weight: 400;
+}

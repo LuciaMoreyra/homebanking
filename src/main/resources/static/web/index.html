@@ -30,36 +30,36 @@
       <div class="card mt-2">
         <img src="./img/computer.jpg" class="card-img-top" alt="imagen">
         <div class="card-body p-3" v-show="formulario == 'signin'">
-          <h5 class="card-title">Sign In</h5>
+          <h5 class="card-title">Ingresar</h5>
           <form @submit.prevent="login" class="d-flex flex-column justify-content-between">
             <div>
             <label for="email" class="form-label">Email:</label>
             <input type="email" required name="email" id="email" placeholder="example@mindhub.com" class="form-control" :class="mensaje? 'is-invalid':''" v-model="loginData.email"/>
-            <label for="password" class="form-label">Password:</label>
+            <label for="password" class="form-label">Contraseña:</label>
             <input type="password" id="password" name="password" v-model="loginData.password" class="form-control" required :class="mensaje? 'is-invalid':''"/>
             <div class="invalid-feedback">
               {{mensaje}}
             </div>
           </div>
           <div class="text-center">
-            <input type="submit" value="Sign In" class="btn btn-primary mt-4">
-            <div class=" my-2">Don't have an account? <a class="link-registro" @click="changeForm('signup')">Sign Up</a></div>
+            <input type="submit" value="Ingresar" class="btn btn-primary mt-4">
+            <div class=" my-2">Todavia no tenés una cuenta? <a class="link-registro" @click="changeForm('signup')">Registrate</a></div>
           </div>
           </form>
           
         </div>
         <div class="card-body p-3" v-show="formulario == 'signup'">
-          <h5 class="card-title">Sign Up</h5>
+          <h5 class="card-title">Registro</h5>
 
         <form class="d-flex flex-column justify-content-between" @submit.prevent="signup">
           
           <div class="row g-3">
             <div class="col-sm-6">
-              <label for="first-name" class="form-label">First Name:</label>
+              <label for="first-name" class="form-label">Nombre:</label>
               <input type="text" name="first-name" id="first-name" class="form-control" required v-model="signUpData.firstName">
             </div>
             <div class="col-sm-6">
-              <label for="last-name" class="form-label">Last Name</label>
+              <label for="last-name" class="form-label">Apellido:</label>
               <input type="text" name="last-name" id="last-name" class="form-control" required v-model="signUpData.lastName">
             </div><div class="col-sm-6">
               <label for="email-new" class="form-label">Email:</label>
@@ -70,14 +70,14 @@
             
             </div>
             <div class="col-sm-6">
-              <label for="password-new" class="form-label">Password:</label>
+              <label for="password-new" class="form-label">Contraseña:</label>
               <input type="password" id="password-new" name="password-new"  class="form-control" required v-model="signUpData.password"/>
             </div>
             
           </div>
           <div class="text-center ">
-            <input type="submit" value="Sign Up" class="btn btn-primary mt-4">
-            <div class="mt-2">Already have an account? <a class="link-registro" @click="changeForm('signin')">Sign In</a></div>
+            <input type="submit" value="Crear Cuenta" class="btn btn-primary mt-4">
+            <div class="mt-2">Ya tenés una cuenta? <a class="link-registro" @click="changeForm('signin')">Ingresar</a></div>
           </div>
         </form>
 

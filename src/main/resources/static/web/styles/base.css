@@ -159,6 +159,16 @@ header img {
     border: none;
     background-color: #ff4500;
   }
+
+  .boton-crear:disabled{
+    background-color: #f09777;
+  }
+
+  .boton-eliminar:disabled:hover,
+  .boton-crear:disabled:hover {
+    transform: none;
+  }
+
   .boton-eliminar p,
   .boton-crear p {
     text-align: center;
@@ -174,6 +184,9 @@ header img {
   }
 
 
+  .modal-title{
+    color : var(--orange);
+  }
 
 
 

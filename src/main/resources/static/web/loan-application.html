@@ -189,7 +189,7 @@
           >
             <div class="modal-dialog modal-dialog-centered">
               <div class="modal-content">
-                <div class="modal-header text-success">
+                <div class="modal-header">
                   <h5 class="modal-title" id="exampleModalLabel">
                     Confirmar Préstamo
                   </h5>
@@ -212,7 +212,7 @@
                 <div class="modal-footer">
                   <button
                     type="button"
-                    class="btn btn-secondary"
+                    class="boton-eliminar"
                     data-bs-dismiss="modal"
                   >
                     Cerrar
@@ -220,7 +220,7 @@
                   <button
                     @click="createLoan"
                     type="button"
-                    class="btn btn-primary"
+                    class="boton-crear"
                   >
                     Confirmar
                   </button>
@@ -251,14 +251,14 @@
                 <div class="modal-footer">
                   <button
                     type="button"
-                    class="btn btn-success"
+                    class="boton-crear"
                     @click="goToUrl(account)"
                   >
                     Ir a la cuenta
                   </button>
                   <button
                     type="button"
-                    class="btn btn-primary"
+                    class="boton-eliminar"
                     data-bs-dismiss="modal"
                     @click="clearForm"
                   >
