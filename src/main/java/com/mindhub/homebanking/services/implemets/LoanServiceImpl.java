@@ -3,12 +3,10 @@ package com.mindhub.homebanking.services.implemets;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
-
 import com.mindhub.homebanking.dtos.LoanDTO;
 import com.mindhub.homebanking.models.Loan;
 import com.mindhub.homebanking.repositories.LoanRepository;
 import com.mindhub.homebanking.services.LoanService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -51,6 +49,7 @@ public class LoanServiceImpl implements LoanService{
     public Set<LoanDTO> getLoans(){
         return loanRepository.findAll().stream().map(LoanDTO::new).collect(Collectors.toSet());
     }
+
     @Override
     public LoanDTO getLoan(Long id){
         Optional<Loan> loan = loanRepository.findById(id);

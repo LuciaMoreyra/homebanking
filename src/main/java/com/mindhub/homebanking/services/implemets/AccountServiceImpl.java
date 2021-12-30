@@ -81,9 +81,10 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public Set<AccountDTO> getClientAccountsDTO(Authentication authentication) {
         Client client = clientRepository.findByEmail(authentication.getName());
-        // return client.getActiveAccounts().stream().map(AccountDTO::new).collect(Collectors.toSet());
-        // hacer que devuelva las activas**********************************************
-        return accountRepository.findByClientIdAndIsActiveTrue(client.getId()).stream().map(AccountDTO::new).collect(Collectors.toSet());
+        return accountRepository.findByClientIdAndIsActiveTrue(client.getId())
+                .stream()
+                .map(AccountDTO::new)
+                .collect(Collectors.toSet());
     }
 
     @Override

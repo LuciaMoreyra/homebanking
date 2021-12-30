@@ -21,63 +21,66 @@
 
   </head>
   <body>
-    <div id="app" class="container">
-      <div class="row vh-100 justify-content-md-center align-content-center">
-        <div class="card col-lg-8 p-3 ">
-          <h2 class="h4 mb-3 text-center">Pagar con Tarjeta</h2>
-          <form class="" @submit.prevent="pay">
-            <div class="mb-3 row">
-              <label for="number" class="col-sm-3 col-form-label"
-                >Numero de tarjeta:</label
-              >
-              <div class="col-sm-9">
-                <input type="text" class="form-control" id="number" required v-model="number" />
-              </div>
+    <div id="app" class="container-fluid d-flex justify-content-md-center align-items-center">
+<!--      <div class="row vh-100 justify-content-md-center align-content-center">-->
+        <div class="card">
+
+          <div class="row">
+            <div class="col-md-3 text-secondary lista py-4">
+              <p class="px-4 text-secondary">Pagar con</p>
+
+              <p class="px-4"><i class="bi bi-credit-card"></i> Débito</p>
+              <p class="px-4"><i class="bi bi-credit-card"></i> Crédito</p>
             </div>
-            <div class="mb-3 row">
-              <label for="cvv" class="col-sm-3 col-form-label"
-                >Codigo de seguridad:</label
-              >
-              <div class="col-sm-9">
-                <input
-                  type="number"
-                  min="100"
-                  max="999"
-                  class="form-control"
-                  id="cvv"
-                  v-model="cvv"
-                  required
-                />
-              </div>
+            <div class="col-md-9 p-4">
+              <h2 class="h4 text-secondary text-center">Pagar con Tarjeta</h2>
+              <hr />
+              <form class="mt-2 mb-2" @submit.prevent="pay">
+                <div class="form-floating mb-3">
+                  <input type="text" class="form-control" id="number" required v-model="number" placeholder="VIN001"/>
+                  <label for="number" class="">Numero de tarjeta</label>
+                </div>
+                <div class="form-floating mb-3">
+                  <input
+                          type="number"
+                          min="100"
+                          max="999"
+                          class="form-control"
+                          id="cvv"
+                          v-model="cvv"
+                          required
+                          placeholder="1234"
+                  />
+                  <label for="cvv" class="">Codigo de seguridad</label>
+                </div>
+                <div class="form-floating mb-3">
+                  <input
+                          type="number"
+                          min="1"
+                          class="form-control"
+                          id="amount"
+                          step="0.01"
+                          v-model="amount"
+                          required
+                          placeholder="0000"
+                  />
+                  <label for="amount" class="">Monto</label>
+
+                </div>
+                <div class="form-floating mb-3">
+                  <input type="text" class="form-control" id="description" required  v-model="description" placeholder="descripción"/>
+                  <label for="description" class="">Descripción</label>
+
+                </div>
+                <div class="text-center">
+                  <input type="submit" class="btn btn-outline-success" value="Pagar">
+                </div>
+              </form>
             </div>
-            <div class="mb-3 row">
-              <label for="amount" class="col-sm-3 col-form-label">Monto:</label>
-              <div class="col-sm-9">
-                <input
-                  type="number"
-                  min="1"
-                  class="form-control"
-                  id="amount"
-                  step="0.01"
-                  v-model="amount"
-                  required
-                />
-              </div>
-            </div>
-            <div class="mb-3 row">
-              <label for="description" class="col-sm-3 col-form-label"
-                >Descripcion:</label
-              >
-              <div class="col-sm-9">
-                <input type="text" class="form-control" id="description" required  v-model="description" />
-              </div>
-            </div>
-            <div class="text-end">
-              <input type="submit" class="btn btn-outline-success" value="Pagar">
           </div>
-        </form>
+
       </div>
-      </div>
+<!--      </div>-->
 
 <!-- Modal success-->
 <div class="modal fade" id="modal-success" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

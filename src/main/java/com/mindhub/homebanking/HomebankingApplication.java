@@ -37,9 +37,9 @@ public class HomebankingApplication {
 			
 
 			Transaction transaccion = new Transaction(TransactionType.CREDIT, 200, "Dinero recibido",(account1.getBalance()+200));
+			transaccion.setDate(LocalDateTime.now().minusDays(2));
 			account1.addTransaction(transaccion);
 			Transaction transaccion2 = new Transaction(TransactionType.DEBIT, -30, "Pago de Servicios",(account1.getBalance()-30));
-			transaccion2.setDate(LocalDateTime.now().minusDays(2));
 			account1.addTransaction(transaccion2);
 			
 
@@ -49,22 +49,27 @@ public class HomebankingApplication {
 
 
 			Account account2 = new Account("VIN002", AccountType.CHECKING);
-			account2.setCreationDate(LocalDateTime.now().plusDays(1));
+			account2.setCreationDate(LocalDateTime.now().minusDays(10));
 			newClient1.addAccount(account2);
-			
+
+			accountRepository.save(account2);
 
 			transaccion = new Transaction(TransactionType.CREDIT, 100.34, "Venta", (account2.getBalance()+100.34));
-			transaccion.setDate(transaccion.getDate().minusDays(2));
-			Transaction transaccion33 = new Transaction(TransactionType.CREDIT, 80.34, "otra cosa", (account2.getBalance()+80.34));
-			transaccion33.setDate(transaccion.getDate().minusDays(3));
+			transaccion.setDate(transaccion.getDate().minusDays(4));
 			account2.addTransaction(transaccion);
-			account2.addTransaction(transaccion33);
+			transactionRepository.save(transaccion);
+
+			Transaction transaccion3 = new Transaction(TransactionType.CREDIT, 80.34, "otra cosa", (account2.getBalance()+80.34));
+			transaccion3.setDate(transaccion3.getDate().minusDays(2));
+			account2.addTransaction(transaccion3);
+			transactionRepository.save(transaccion3);
+
 			transaccion2 = new Transaction(TransactionType.CREDIT, 50, "Sueldo",(account2.getBalance()+50));
 			account2.addTransaction(transaccion2);
-			accountRepository.save(account2);
-			transactionRepository.save(transaccion);
 			transactionRepository.save(transaccion2);
-			transactionRepository.save(transaccion33);
+
+			accountRepository.save(account2);
+
 
 
 		Client newClient2 = new Client("Maria", "Perez", "maria@mindhub.com", passwordEncoder.encode("maria"));
