@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.transaction.annotation.Transactional;
 
 
 @Service
@@ -37,6 +38,7 @@ public class PaymentServiceImpl implements PaymentService{
     ClientRepository clientRepository;
 
     @Override
+    @Transactional
     public ResponseEntity<Object> createPayment(PaymentApplicationDTO dto){
         if (dto.getCardNumber().isEmpty() || dto.getAmount() <= 0 || dto.getDescription().isEmpty() || dto.getCvv() < 100 ||  dto.getCvv() >= 1000 ){
             return new ResponseEntity<>("missing data", HttpStatus.FORBIDDEN);
@@ -44,7 +46,7 @@ public class PaymentServiceImpl implements PaymentService{
         Card card = cardRepository.findByNumber(dto.getCardNumber());
         if (card == null){
             return new ResponseEntity<>("card does not exist", HttpStatus.FORBIDDEN);
-    }
+        }
         // if (!cardService.checkCvv(dto.getCardNumber(), dto.getCvv())){
         if (card.getCvv() != dto.getCvv()){
             return new ResponseEntity<>("card number and cvv do not match", HttpStatus.FORBIDDEN); 
@@ -55,23 +57,22 @@ public class PaymentServiceImpl implements PaymentService{
         }
         Set<Account> accounts = accountRepository.findByClientIdAndBalanceGreaterThan(card.getClient().getId(), dto.getAmount());
 
-        // for (Account account : accounts) {
-        //     logger.info(account.getNumber() + " ++++++ " + account.getBalance());
-        // }
-        if (accounts.size() == 0){
+        if (accounts.isEmpty()){
             return new ResponseEntity<>("you do not have enough money in any of your accounts", HttpStatus.FORBIDDEN);
         }
         // toma el primer elemento del set
-        Account account= accounts.stream().findFirst().get();
-        Transaction transaction = new Transaction(TransactionType.DEBIT, -dto.getAmount(), dto.getDescription(), account.getBalance() - dto.getAmount());
-        account.addTransaction(transaction);
-        
-        transactionRepository.save(transaction);
-        
-    //    Payment payment = new Payment(dto.getAmount(),dto.getDescription(),card, transaction.getDate(), account.getNumber());
-    //    paymentRepository.save(payment);
-      
-        return new ResponseEntity<>("payment completed",HttpStatus.CREATED);   
+        Account account= accounts.stream().findFirst().orElse(null);
+        if (account!=null){
+            Transaction transaction = new Transaction(TransactionType.DEBIT, -dto.getAmount(), dto.getDescription(), account.getBalance() - dto.getAmount());
+            account.addTransaction(transaction);
+            transactionRepository.save(transaction);
+            //    Payment payment = new Payment(dto.getAmount(),dto.getDescription(),card, transaction.getDate(), account.getNumber());
+            //    paymentRepository.save(payment);
+
+            return new ResponseEntity<>("payment completed",HttpStatus.CREATED);
+        }else {
+            return new ResponseEntity<>("there has been an error while processing the payment", HttpStatus.FORBIDDEN);
+        }
     }
 
    @Override

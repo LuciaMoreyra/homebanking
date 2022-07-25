@@ -4,10 +4,8 @@ import com.mindhub.homebanking.dtos.TransactionDTO;
 import com.mindhub.homebanking.models.Transaction;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.Set;
 

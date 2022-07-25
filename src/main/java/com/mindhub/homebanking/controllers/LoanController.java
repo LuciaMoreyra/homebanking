@@ -1,19 +1,9 @@
 package com.mindhub.homebanking.controllers;
 
-import com.mindhub.homebanking.dtos.LoanApplicationDTO;
 import com.mindhub.homebanking.dtos.LoanDTO;
-import com.mindhub.homebanking.models.*;
-import com.mindhub.homebanking.services.AccountService;
-import com.mindhub.homebanking.services.ClientLoanService;
-import com.mindhub.homebanking.services.ClientService;
 import com.mindhub.homebanking.services.LoanService;
 
-// import org.jetbrains.annotations.NotNull;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
@@ -27,16 +17,11 @@ import org.slf4j.LoggerFactory;
 @RequestMapping("/api")
 public class LoanController {
 
-    final static Logger logger = LoggerFactory.getLogger(LoanController.class);
+    private final LoanService loanService;
 
-    @Autowired
-    ClientService clientService;
-    @Autowired
-    AccountService accountService;
-    @Autowired
-    LoanService loanService;
-    @Autowired
-    ClientLoanService clientLoanService;
+    public LoanController(LoanService loanService) {
+        this.loanService = loanService;
+    }
 
     @GetMapping("/loans")
     public Set<LoanDTO> getLoans() {

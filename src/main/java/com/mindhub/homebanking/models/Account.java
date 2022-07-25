@@ -101,14 +101,6 @@ public class Account {
     public void setId(Long id) {
         this.id = id;
     }
-
-    public Boolean getActive() {
-        return isActive;
-    }
-
-    public void setActive(Boolean active) {
-        isActive = active;
-    }
     public void updateBalance(double amount){
         this.balance = this.balance + amount;
     }

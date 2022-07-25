@@ -4,20 +4,21 @@ import java.util.Random;
 
 public final class CardUtils{
 
+    private static Random random = new Random();
+
     // >= min, < max
     public static int getRandomNumber(int min, int max) {
-        Random random = new Random();
         return random.ints(min, max)
                 .findFirst()
                 .getAsInt();
     }
 
-    public static String geCardNumber() {
-        String number = "";
+    public static String getCardNumber() {
+        StringBuilder sb = new StringBuilder("");
         for (int i = 0; i < 4; i++) {
-            number += Integer.toString(getRandomNumber(1000, 10000));
+            sb.append(Integer.toString(getRandomNumber(1000, 10000)));
         }
-        return number;
+        return sb.toString();
     }
 
     public static int getCvv() {

@@ -64,7 +64,7 @@ public class ClientServiceImpl implements ClientService {
             return new ResponseEntity<>("Missing data", HttpStatus.FORBIDDEN);
         }
 
-        if (clientExists(email)) {
+        if (Boolean.TRUE.equals(clientExists(email))) {
             return new ResponseEntity<>("Email already in use", HttpStatus.FORBIDDEN);
         }
 

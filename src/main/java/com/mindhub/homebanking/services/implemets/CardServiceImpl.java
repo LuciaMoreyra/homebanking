@@ -1,6 +1,5 @@
 package com.mindhub.homebanking.services.implemets;
 
-import java.util.Random;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -66,7 +65,7 @@ public class CardServiceImpl implements CardService{
 
     @Override
     public Boolean createCard(CardType type, CardColor color,  Client client){
-        String number = CardUtils.geCardNumber();
+        String number = CardUtils.getCardNumber();
         int cvv = CardUtils.getCvv();
         Card card = new Card(type, color, client, number, cvv);
         return cardRepository.save(card)!= null ;
@@ -95,7 +94,7 @@ public class CardServiceImpl implements CardService{
         Client client = clientRepository.findByEmail(authentication.getName());
         return client.getCards()
                 .stream()
-                .map(card -> new CardDTO(card))
+                .map(CardDTO::new)
                 .collect(Collectors.toSet());
     }
     

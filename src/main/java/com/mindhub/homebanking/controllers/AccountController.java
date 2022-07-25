@@ -33,7 +33,10 @@ public class AccountController {
     public ResponseEntity<Object> createAccount( Authentication authentication, @RequestParam AccountType type){
 
        Client client = clientService.getClientAuth(authentication);
-        return accountService.createNewAccount(client, type) ? new ResponseEntity<>(HttpStatus.CREATED): new ResponseEntity<>("Client already has 3 accounts", HttpStatus.FORBIDDEN);
+        Boolean newAccount = accountService.createNewAccount(client, type);
+        return Boolean.TRUE.equals(newAccount)
+                ? new ResponseEntity<>(HttpStatus.CREATED)
+                : new ResponseEntity<>("Client already has 3 accounts", HttpStatus.FORBIDDEN);
     }
 
     @GetMapping("/clients/current/accounts")

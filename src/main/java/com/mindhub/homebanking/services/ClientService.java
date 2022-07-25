@@ -6,8 +6,6 @@ import com.mindhub.homebanking.models.Client;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 
-import java.util.Set;
-
 public interface ClientService {
 
     ResponseEntity<Object> getClientsDTO(Authentication authentication);

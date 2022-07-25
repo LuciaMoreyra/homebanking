@@ -14,15 +14,17 @@ import java.util.Set;
 @Component
 public class Data {
 
-    private final PasswordEncoder passwordEncoder;
-
-    public Data(PasswordEncoder passwordEncoder) {
-        this.passwordEncoder = passwordEncoder;
-    }
-
     @Bean
-    public CommandLineRunner initData(PasswordEncoder passwordEncoder, ClientRepository clientRepository, AccountRepository accountRepository, TransactionRepository transactionRepository, LoanRepository loanRepository, ClientLoanRepository clientLoanRepository, CardRepository cardRepository, PaymentRepository paymentRepository) {
-        return (args) -> {
+    public CommandLineRunner initData(
+            PasswordEncoder passwordEncoder,
+            ClientRepository clientRepository,
+            AccountRepository accountRepository,
+            TransactionRepository transactionRepository,
+            LoanRepository loanRepository,
+            ClientLoanRepository clientLoanRepository,
+            CardRepository cardRepository,
+            PaymentRepository paymentRepository) {
+        return args -> {
 
             Client newClient1 = new Client("Melba", "Lorenzo", "melba@mindhub.com", passwordEncoder.encode("melba"));
             clientRepository.save(newClient1);

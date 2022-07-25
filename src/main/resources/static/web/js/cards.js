@@ -18,8 +18,6 @@ const app = Vue.createApp({
               .get("/api/clients/current")
               .then((response) => {
                 this.clientData = response.data;
-                // this.clientData.accounts.sort((a, b) => b.id - a.id);
-                // this.loans = this.clientData.loans;
                 this.cards = this.clientData.cards;
                 console.log(this.clientData.accounts);
               })

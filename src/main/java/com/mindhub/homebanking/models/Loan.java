@@ -37,7 +37,7 @@ public class Loan {
 
     // @JsonIgnore
     public Set<Client> getClients(){
-        return clientLoans.stream().map(client->client.getClient()).collect(Collectors.toSet());
+        return clientLoans.stream().map(ClientLoan::getClient).collect(Collectors.toSet());
     }
    
     public Long getId() {

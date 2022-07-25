@@ -8,7 +8,7 @@ import com.mindhub.homebanking.repositories.ClientRepository;
 import com.mindhub.homebanking.services.AccountService;
 import com.mindhub.homebanking.services.ClientService;
 
-import org.apache.coyote.Response;
+import com.mindhub.homebanking.utils.CardUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +16,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import com.mindhub.homebanking.models.AccountType;
 
-import java.util.Random;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -31,11 +30,6 @@ public class AccountServiceImpl implements AccountService {
 
     @Autowired
     ClientService clientService;
-
-    private int getRandomNumber(int min, int max) {
-        Random random = new Random();
-        return random.ints(min, max).findFirst().getAsInt();
-    }
 
     @Override
     public Boolean accountBelongsToAuthClient(Authentication authentication, Account account) {
@@ -67,7 +61,7 @@ public class AccountServiceImpl implements AccountService {
             return false;
         }
         try {
-            int number = getRandomNumber(0, 100000000);
+            int number = CardUtils.getRandomNumber(0, 100000000);
             Account newAccount = new Account("VIN" + Integer.toString(number), type);
             client.addAccount(newAccount);
             accountRepository.save(newAccount);

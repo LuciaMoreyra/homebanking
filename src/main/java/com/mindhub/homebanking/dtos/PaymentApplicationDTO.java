@@ -1,7 +1,5 @@
 package com.mindhub.homebanking.dtos;
 
-import com.mindhub.homebanking.models.Payment;
-
 public class PaymentApplicationDTO {
     private String cardNumber;
     private int cvv;

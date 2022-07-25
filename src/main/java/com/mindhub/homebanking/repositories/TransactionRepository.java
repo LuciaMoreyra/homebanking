@@ -1,6 +1,5 @@
 package com.mindhub.homebanking.repositories;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Set;
 

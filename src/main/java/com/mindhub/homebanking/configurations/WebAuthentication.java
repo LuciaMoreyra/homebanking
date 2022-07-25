@@ -25,7 +25,7 @@ public class WebAuthentication extends GlobalAuthenticationConfigurerAdapter {
             Client client = clientRepository.findByEmail(email);
 
             if (client != null) {
-                if (client.getEmail() == "admin@admin") {
+                if ("admin@admin".equals(client.getEmail())) {
                     return new User(client.getEmail(), client.getPassword(),
                             AuthorityUtils.createAuthorityList("ADMIN"));
                 }
@@ -33,7 +33,7 @@ public class WebAuthentication extends GlobalAuthenticationConfigurerAdapter {
             } else {
                 throw new UsernameNotFoundException("Unknown client: " + email);
             }
-        });
+        }).passwordEncoder(passwordEncoder());
     }
 
     @Bean

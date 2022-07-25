@@ -10,22 +10,22 @@ import static org.hamcrest.Matchers.*;
 public class CardUtilsTests {
 
     @Test
-    public void cardNumberIsCreated(){
-        String cardNumber = CardUtils.geCardNumber();
+    void cardNumberIsCreated(){
+        String cardNumber = CardUtils.getCardNumber();
         assertThat(cardNumber,is(not(emptyOrNullString())));
     }
     @Test
-    public void randomNumberIsCreated(){
+    void randomNumberIsCreated(){
         int exampleNumber = CardUtils.getRandomNumber(1,344);
         assertThat(exampleNumber, is(not(nullValue())));
     }
     @Test
-    public void randomNumberIsGreaterOrEqualToMinParameter(){
+    void randomNumberIsGreaterOrEqualToMinParameter(){
         int exampleNumber = CardUtils.getRandomNumber(5,10);
         assertThat(exampleNumber, greaterThanOrEqualTo(5));
     }
     @Test
-    public void cvvNumberHasMaxThreeDigits(){
+    void cvvNumberHasMaxThreeDigits(){
         int cvv = CardUtils.getCvv();
         assertThat(cvv, not(greaterThan(999)));
     }

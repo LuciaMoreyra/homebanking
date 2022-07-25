@@ -90,6 +90,7 @@ const app = Vue.createApp({
                 },
               })
                 .then(response => {
+                    console.log(response)
                     this.showAlert(this.alertClass);
                     this.loadData();
                 })

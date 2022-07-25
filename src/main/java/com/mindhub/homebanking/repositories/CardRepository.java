@@ -10,7 +10,7 @@ import java.util.Set;
 @RepositoryRestResource
 public interface CardRepository extends JpaRepository<Card, Long> {
 
-    Boolean existsCardById(Long cardId);
+    boolean existsCardById(Long cardId);
 
     Set<Card> findByClientIdAndType(Long clientId, CardType type);
 
