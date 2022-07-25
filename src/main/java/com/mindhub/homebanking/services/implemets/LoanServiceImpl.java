@@ -30,7 +30,7 @@ public class LoanServiceImpl implements LoanService{
             return new ResponseEntity<>("missing data", HttpStatus.FORBIDDEN);
         }
 
-        if (loanRepository.existsLoanByName(loanDTO.getName())){
+        if (Boolean.TRUE.equals(loanRepository.existsLoanByName(loanDTO.getName()))){
             return new ResponseEntity<>("this loan already exists", HttpStatus.FORBIDDEN);
         }
 

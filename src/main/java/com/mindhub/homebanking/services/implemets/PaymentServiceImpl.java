@@ -24,7 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class PaymentServiceImpl implements PaymentService{
-    final static Logger logger = LoggerFactory.getLogger(PaymentServiceImpl.class);
+    static final Logger logger = LoggerFactory.getLogger(PaymentServiceImpl.class);
 
     @Autowired
     PaymentRepository paymentRepository;
