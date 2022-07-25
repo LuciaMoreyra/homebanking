@@ -41,7 +41,7 @@ public class Client {
 
 
     public Set<Account> getActiveAccounts() {
-        return accounts.stream().filter(acc->acc.getIsActive()).collect(Collectors.toSet());
+        return accounts.stream().filter(Account::getIsActive).collect(Collectors.toSet());
     }
 
 
@@ -117,5 +117,18 @@ public class Client {
         account.setClient(this);
         accounts.add(account);
     }
-    
+
+    @Override
+    public String toString() {
+        return "Client{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", accounts=" + accounts +
+                ", clientLoans=" + clientLoans +
+                ", cards=" + cards +
+                '}';
+    }
 }

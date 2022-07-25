@@ -121,11 +121,28 @@ public class Card {
     public void setFromDate(LocalDateTime fromDate) {
         this.fromDate = fromDate;
     }
+
     public Set<Payment> getPayments() {
         return payments;
     }
+
     public void setPayments(Set<Payment> payments) {
         this.payments = payments;
     }
-    
+
+    @Override
+    public String toString() {
+        return "Card{" +
+                "id=" + id +
+                ", client=" + client.getEmail() +
+                ", payments=" + payments +
+                ", type=" + type +
+                ", color=" + color +
+                ", number='" + number + '\'' +
+                ", cardholder='" + cardholder + '\'' +
+                ", cvv=" + cvv +
+                ", thruDate=" + thruDate +
+                ", fromDate=" + fromDate +
+                '}';
+    }
 }
